@@ -3,7 +3,8 @@ QT += quick
 SOURCES += \
         src/main.cpp
 
-resources.files = src/main.qml 
+resources.files = \
+        src/main.qml
 resources.prefix = /$${TARGET}
 RESOURCES += resources
 
