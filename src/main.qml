@@ -1,10 +1,11 @@
 import QtQuick 2.0
 import QtQuick.Controls
+import Qt.labs.folderlistmodel 1.0
 
 import "Components/"
 
 Window {
-    property string name: "pic.jpg"
+    property string currFileName: "pic.jpg"
     property int containerWidth: window.width * 0.4
     property int containerHeight: window.width * 0.4
     property int containerMargin: window.width * 0.05
@@ -15,6 +16,12 @@ Window {
     height: 800
     visible: true
     title: qsTr("Hello World")
+
+    FolderListModel {
+        id: folderModel
+        folder: "file:images/"
+        nameFilters: [ "*" ]
+    }
 
     ScrollView {
         id: menu
@@ -29,16 +36,21 @@ Window {
         }
 
         ListView {
+            property var currentSelectedItem
             id: listView
-            model: 20
+            model: folderModel
             anchors.fill: parent
             delegate: FileListItem {
+                id: delegate
                 height: 50
                 width: parent.width
-                label: "model " + index
+                label: fileName
                 MouseArea {
                     anchors.fill: parent
-                    onClicked: listView.currentIndex = index
+                    onClicked: { 
+                        listView.currentIndex = index;
+                        currFileName = delegate.label
+                    }
                 }
             }
         }
@@ -53,6 +65,6 @@ Window {
         }
         width: containerWidth
         height: containerHeight
-        source: "file:images/" + name
+        source: "file:images/" + currFileName
     }
 }
