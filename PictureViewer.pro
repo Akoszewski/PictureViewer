@@ -1,12 +1,8 @@
 QT += quick
+QT += quickcontrols2
 
 SOURCES += \
         src/main.cpp
-
-resources.files = \
-        src/main.qml
-resources.prefix = /$${TARGET}
-RESOURCES += resources
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =
@@ -18,3 +14,6 @@ QML_DESIGNER_IMPORT_PATH =
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+DISTFILES += \
+    src/Components/FileListItem.qml
