@@ -5,7 +5,7 @@ Window {
 
     id: window
     width: 1200
-    height: 1000
+    height: 800
     visible: true
     title: qsTr("Hello World")
 
@@ -14,11 +14,11 @@ Window {
         anchors {
             right: parent.right
             verticalCenter: parent.verticalCenter
-            rightMargin: window.width * 0.1
+            rightMargin: window.width * 0.05
 
         }
-        width: window.height * 0.5
-        height: window.height * 0.5
+        width: window.width * 0.4
+        height: window.width * 0.4
         source: "file:images/" + name
     }
 }
