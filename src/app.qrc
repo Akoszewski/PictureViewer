@@ -2,6 +2,11 @@
     <qresource prefix="/">
         <file>main.qml</file>
         <file>Components/FileListItem.qml</file>
-        <file>../images/pic.jpg</file>
+        <file>images/pic.jpg</file>
+        <file>images/pic2.jpg</file>
+        <file>images/pic3.jpg</file>
+        <file>images/pic4.jpg</file>
+        <file>images/pic5.jpg</file>
+        <file>images/pic6.jpg</file>
     </qresource>
 </RCC>

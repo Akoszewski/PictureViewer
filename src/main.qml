@@ -19,7 +19,7 @@ Window {
 
     FolderListModel {
         id: folderModel
-        folder: "file:images/"
+        folder: "qrc:/images/"
         nameFilters: [ "*" ]
     }
 
@@ -65,6 +65,6 @@ Window {
         }
         width: containerWidth
         height: containerHeight
-        source: "file:images/" + currFileName
+        source: "qrc:/images/" + currFileName
     }
 }
