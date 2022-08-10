@@ -8,6 +8,7 @@ RESOURCES += \
     src/app.qrc
 
 DISTFILES += \
+    README.md \
     src/Components/FileListItem.qml \
     src/images/pic.jpg \
     src/images/pic2.jpg \
