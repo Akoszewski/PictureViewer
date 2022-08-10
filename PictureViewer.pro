@@ -1,5 +1,6 @@
 QT += quick
 QT += quickcontrols2
+QT += sql
 
 SOURCES += \
         src/main.cpp
@@ -17,4 +18,6 @@ DISTFILES += \
     src/images/pic4.jpg \
     src/images/pic5.jpg \
     src/images/pic6.jpg \
-    src/main.qml
+    src/main.qml \
+    database.sh \
+    database.sql
