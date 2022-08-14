@@ -3,11 +3,22 @@
 
 #include "database.h"
 
+void createDatabase(const QString& databaseName)
+{
+    Database postgresDb("postgres");
+    postgresDb.executeQuery("create database " + databaseName + ";");
+}
+
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
     QQmlApplicationEngine engine;
-    Database db;
+
+    createDatabase("app_database");
+
+    Database db("app_database");
+    db.exampleQuery();
+
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
     return app.exec();
 }

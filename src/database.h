@@ -6,10 +6,13 @@
 class Database
 {
 public:
-    Database();
+    Database(const QString& dbname);
     ~Database();
+    void exampleQuery();
+    void executeQuery(const QString& queryStr);
 private:
-    QSqlDatabase db;
+    QString postgresPassword;
+    QString name;
 };
 
 #endif

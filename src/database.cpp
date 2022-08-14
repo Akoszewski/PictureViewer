@@ -1,28 +1,43 @@
 #include "database.h"
 
-Database::Database()
+Database::Database(const QString& dbname)
+    : name(dbname)
 {
-    db = QSqlDatabase::addDatabase("QPSQL"); // Will use the driver referred to by "QPSQL" (PostgreSQL Driver) 
+    postgresPassword = "haslo123";
+
+    QSqlDatabase db = QSqlDatabase::addDatabase("QPSQL");
     db.setHostName("localhost");
-    db.setDatabaseName("app_database");
+    db.setDatabaseName(name);
     db.setUserName("postgres");
-    db.setPassword("haslo123");
-    
+    db.setPassword(postgresPassword);
+
     bool res = db.open();
-    if (res) {
-        QSqlQuery query("SELECT * FROM patients");
-        while (query.next()) {
-          QString name = query.value(1).toString();
-          QString surname = query.value(2).toString();
-          QString age = query.value(3).toString();
-          qDebug() << name << " " << surname << " " << age;
-        }
-    } else {
+    if (!res) {
         qCritical() << "Error opening database: " << db.lastError();
     }
 }
 
 Database::~Database()
 {
-    db.close();
+    {
+        QSqlDatabase db = QSqlDatabase::database();
+        db.close();
+    }
+    QSqlDatabase::removeDatabase(QSqlDatabase::defaultConnection);
+}
+
+void Database::exampleQuery()
+{
+    QSqlQuery query("SELECT * FROM patients");
+    while (query.next()) {
+        QString name = query.value(1).toString();
+        QString surname = query.value(2).toString();
+        QString age = query.value(3).toString();
+        qDebug() << name << " " << surname << " " << age;
+    }
+}
+
+void Database::executeQuery(const QString& queryStr)
+{
+    QSqlQuery query(queryStr);
 }
