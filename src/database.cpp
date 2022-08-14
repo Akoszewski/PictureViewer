@@ -53,6 +53,7 @@ void Database::executeSqlFile(const QString& fileName)
 {
     QFile file(fileName);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        qCritical() << "Failed to open sql file: " << fileName;
         return;
     }
 

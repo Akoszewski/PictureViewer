@@ -13,13 +13,14 @@ void setupDatabase()
 {
     createDatabase("app_database");
     Database db("app_database");
-    db.executeSqlFile("database.sql");
+    db.executeSqlFile(":/setupdb.sql");
 }
 
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
     QQmlApplicationEngine engine;
+    Q_INIT_RESOURCE(app);
 
     setupDatabase();
 
