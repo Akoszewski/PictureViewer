@@ -13,6 +13,6 @@ oraz zainstalować connector qt do bazy danych. Na systemie MacOS będzie to kom
 a na linux Ubuntu/Debian:
 `apt install libqt5sql5-psql`
 
-Uwaga: Na systemie MacOS jeśli polecenie psql nie będzie odnalezione nalezy zaczac od
+Uwaga: Na systemie MacOS jeśli polecenie psql nie będzie odnalezione należy zacząć od
 komendy `export PATH="/Applications/Postgres.app/Contents/Versions/9.5/bin:$PATH"`
-ale nalezy zastapic prawidłowa ścieżka która jest zależna m.in. od wersji postgresql.
+ale należy poprawić ścieżkę która jest zależna m.in. od wersji postgresql.

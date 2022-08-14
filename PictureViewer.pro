@@ -3,7 +3,11 @@ QT += quickcontrols2
 QT += sql
 
 SOURCES += \
+        src/database.cpp \
         src/main.cpp
+
+HEADERS += \
+    src/database.h
 
 RESOURCES += \
     src/app.qrc
