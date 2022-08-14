@@ -5,10 +5,14 @@ w bazie. Wyszukiwanie pacjentów, badań lub obrazów według metadanych. Podgl�
 wynikiem zapytania. Projekt realizowany z wykorzystaniem biblioteki Qt.
 
 
-Uruchamianie:
+Instalacja:
 Przed pierwszym uruchomieniem aplikacji należy uruchomić skrypt `./setup-db.sh`
-oraz zainstalowac connector qt do bazy danych. Na systemie MacOS bedzie to komenda: 
+oraz zainstalować connector qt do bazy danych. Na systemie MacOS będzie to komenda: 
 `brew install qt-postgresql`
 
 a na linux Ubuntu/Debian:
 `apt install libqt5sql5-psql`
+
+Uwaga: Na systemie MacOS jeśli polecenie psql nie będzie odnalezione nalezy zaczac od
+komendy `export PATH="/Applications/Postgres.app/Contents/Versions/9.5/bin:$PATH"`
+ale nalezy zastapic prawidłowa ścieżka która jest zależna m.in. od wersji postgresql.
