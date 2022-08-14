@@ -6,4 +6,9 @@ wynikiem zapytania. Projekt realizowany z wykorzystaniem biblioteki Qt.
 
 
 Uruchamianie:
-Przed uruchomieniem aplikacji należy uruchomić skrypt ./setup-db.sh
+Przed pierwszym uruchomieniem aplikacji należy uruchomić skrypt `./setup-db.sh`
+oraz zainstalowac connector qt do bazy danych. Na systemie MacOS bedzie to komenda: 
+`brew install qt-postgresql`
+
+a na linux Ubuntu/Debian:
+`apt install libqt5sql5-psql`
