@@ -9,15 +9,19 @@ void createDatabase(const QString& databaseName)
     postgresDb.executeQuery("create database " + databaseName + ";");
 }
 
+void setupDatabase()
+{
+    createDatabase("app_database");
+    Database db("app_database");
+    db.executeSqlFile("database.sql");
+}
+
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
     QQmlApplicationEngine engine;
 
-    createDatabase("app_database");
-
-    Database db("app_database");
-    db.exampleQuery();
+    setupDatabase();
 
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
     return app.exec();

@@ -26,18 +26,43 @@ Database::~Database()
     QSqlDatabase::removeDatabase(QSqlDatabase::defaultConnection);
 }
 
-void Database::exampleQuery()
+void Database::executeQuery(const QString& queryStr, ExecutionMode mode)
 {
-    QSqlQuery query("SELECT * FROM patients");
-    while (query.next()) {
-        QString name = query.value(1).toString();
-        QString surname = query.value(2).toString();
-        QString age = query.value(3).toString();
-        qDebug() << name << " " << surname << " " << age;
+    QSqlQuery query;
+    if (!query.exec(queryStr)) {
+        qDebug() << "Failed:" << queryStr << " Reason:" << query.lastError();
+    }
+    if (mode == ExecutionMode::Print) {
+        printQueryResult(query);
     }
 }
 
-void Database::executeQuery(const QString& queryStr)
+void Database::printQueryResult(QSqlQuery& query)
 {
-    QSqlQuery query(queryStr);
+    while (query.next()) {
+        QSqlRecord record = query.record();
+        QStringList results;
+        for (int i = 0; i < record.count(); ++i) {
+            results << record.value(i).toString();
+        }
+        qDebug() << results.join(" ");
+    }
+}
+
+void Database::executeSqlFile(const QString& fileName)
+{
+    QFile file(fileName);
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        return;
+    }
+
+    QTextStream in(&file);
+    QString sqlCode = in.readAll();
+    QStringList statements = sqlCode.split(';', Qt::SkipEmptyParts);
+ 
+    for (const QString& statement : statements) {
+        if (statement.trimmed() != "") {
+            executeQuery(statement, ExecutionMode::Print);
+        }
+    }
 }

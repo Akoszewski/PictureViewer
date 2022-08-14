@@ -6,10 +6,16 @@
 class Database
 {
 public:
+    enum class ExecutionMode
+    {
+        Silent,
+        Print
+    };
     Database(const QString& dbname);
     ~Database();
-    void exampleQuery();
-    void executeQuery(const QString& queryStr);
+    void executeQuery(const QString& queryStr, ExecutionMode mode = ExecutionMode::Silent);
+    void printQueryResult(QSqlQuery& query);
+    void executeSqlFile(const QString& fileName);
 private:
     QString postgresPassword;
     QString name;
