@@ -5,16 +5,11 @@
 
 void database()
 {
-    std::string password;
-    std::cout << std::endl;
-    std::cout << "Type password: ";
-    std::cin >> password;
-
     QSqlDatabase db = QSqlDatabase::addDatabase("QPSQL"); // Will use the driver referred to by "QPSQL" (PostgreSQL Driver) 
     db.setHostName("localhost");
     db.setDatabaseName("app_database");
     db.setUserName("postgres");
-    db.setPassword(QString::fromStdString(password));
+    db.setPassword("haslo123");
     
     bool res = db.open();
     if (res) {
