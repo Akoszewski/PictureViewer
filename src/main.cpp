@@ -23,7 +23,7 @@ void database()
     QSqlDatabase db = QSqlDatabase::addDatabase("QPSQL"); // Will use the driver referred to by "QPSQL" (PostgreSQL Driver) 
     db.setHostName("localhost");
     db.setDatabaseName("app_database");
-    db.setUserName(username);
+    db.setUserName("postgres");
     db.setPassword(QString::fromStdString(password));
     
     bool res = db.open();

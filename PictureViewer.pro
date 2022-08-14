@@ -19,5 +19,5 @@ DISTFILES += \
     src/images/pic5.jpg \
     src/images/pic6.jpg \
     src/main.qml \
-    database.sh \
+    setup-db.sh \
     database.sql
