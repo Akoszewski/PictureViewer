@@ -3,19 +3,9 @@
 #include <QtSql>
 #include <iostream>
 
-QString getSystemUsername()
-{
-    QString name = qgetenv("USER");
-    if (name.isEmpty()) {
-        name = qgetenv("USERNAME");
-    }
-    return name;
-}
-
 void database()
 {
     std::string password;
-    QString username = getSystemUsername();
     std::cout << std::endl;
     std::cout << "Type password: ";
     std::cin >> password;
