@@ -1,7 +1,7 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 
-#include "database.h"
+#include "Database.h"
 #include "DicomImageProvider.h"
 
 void createDatabase(const QString& databaseName)

@@ -1,4 +1,4 @@
-#include "database.h"
+#include "Database.h"
 
 Database::Database(const QString& dbname)
     : name(dbname)
