@@ -66,6 +66,6 @@ Window {
         }
         width: containerWidth
         height: containerHeight
-        source: "qrc:/images/" + currFileName
+        source: "image://DicomImageProvider/" + currFileName
     }
 }

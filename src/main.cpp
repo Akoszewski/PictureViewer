@@ -2,6 +2,7 @@
 #include <QQmlApplicationEngine>
 
 #include "database.h"
+#include "DicomImageProvider.h"
 
 void createDatabase(const QString& databaseName)
 {
@@ -20,6 +21,7 @@ int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
     QQmlApplicationEngine engine;
+    engine.addImageProvider(QLatin1String("DicomImageProvider"), new DicomImageProvider);
     Q_INIT_RESOURCE(app);
 
     setupDatabase();

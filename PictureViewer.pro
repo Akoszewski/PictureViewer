@@ -3,11 +3,13 @@ QT += quickcontrols2
 QT += sql
 
 SOURCES += \
-        src/database.cpp \
-        src/main.cpp
+    src/database.cpp \
+    src/DicomImageProvider.cpp \
+    src/main.cpp
 
 HEADERS += \
     src/database.h
+    src/DicomImageProvider.h
 
 RESOURCES += \
     src/app.qrc
