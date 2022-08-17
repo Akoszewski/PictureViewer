@@ -20,7 +20,7 @@ Window {
 
     FolderListModel {
         id: folderModel
-        folder: "qrc:/images/"
+        folder: "qrc:/images/DICOM/series-000001"
         nameFilters: [ "*" ]
     }
 

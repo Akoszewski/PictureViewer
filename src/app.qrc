@@ -9,5 +9,10 @@
         <file>images/pic5.jpg</file>
         <file>images/pic6.jpg</file>
         <file>setupdb.sql</file>
+        <file>images/DICOM/series-000001/image-000001.dcm</file>
+        <file>images/DICOM/series-000001/image-000002.dcm</file>
+        <file>images/DICOM/series-000001/image-000003.dcm</file>
+        <file>images/DICOM/series-000001/image-000004.dcm</file>
+        <file>images/DICOM/series-000001/image-000005.dcm</file>
     </qresource>
 </RCC>
