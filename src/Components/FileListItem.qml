@@ -8,7 +8,7 @@ ItemDelegate {
     highlighted: ListView.isCurrentItem
     contentItem: Text {
         id: contentText
-        font.pixelSize: 20
+        // font.pixelSize: 20
         anchors.fill: parent
         verticalAlignment: Text.AlignVCenter
         horizontalAlignment: Text.AlignHCenter

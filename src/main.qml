@@ -5,7 +5,7 @@ import QtQuick.Window 2.15
 
 import "Components/"
 
-Window {
+Rectangle {
     property string currFileName: "pic.jpg"
     property int containerWidth: window.width * 0.4
     property int containerHeight: window.width * 0.4
@@ -16,7 +16,8 @@ Window {
     width: 1200
     height: 800
     visible: true
-    title: qsTr("Hello World")
+    
+    anchors.fill: parent
 
     FolderListModel {
         id: folderModel
