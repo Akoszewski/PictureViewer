@@ -4,6 +4,8 @@
 #include "Database.h"
 #include "DicomImageProvider.h"
 
+using namespace std;
+
 void createDatabase(const QString& databaseName)
 {
     Database postgresDb("postgres");
@@ -28,4 +30,4 @@ int main(int argc, char *argv[])
 
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
     return app.exec();
-}
+}        
