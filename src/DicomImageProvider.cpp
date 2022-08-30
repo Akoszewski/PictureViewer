@@ -14,19 +14,12 @@ QPixmap DicomImageProvider::requestPixmap(const QString &id, QSize *size, const 
 
     qDebug() << "id: " << id;
     // TODO: Tutaj musi byc wczytywanie plikow dicom i konwersja na QPixmap
-    imebra::DataSet loadedDataSet(imebra::CodecFactory::load(("/home/arek/PictureViewer/images/DICOM/" + id).toStdString()));
+    imebra::DataSet loadedDataSet(imebra::CodecFactory::load(("/home/sim/PictureViewer/images/DICOM/" + id).toStdString()));
     
     imebra::UnicodePatientName patientName = loadedDataSet.getUnicodePatientName(imebra::TagId(imebra::tagId_t::PatientName_0010_0010), 0);
     qDebug() << "Patient name: " << QString::fromStdWString(patientName.getAlphabeticRepresentation());
 
     imebra::Image image(loadedDataSet.getImageApplyModalityTransform(0));
-
-    std::string colorSpace = image.getColorSpace();
-    qDebug() << "colorSpace: " << QString::fromStdString(colorSpace);
-
-    long width = image.getWidth();
-    long height = image.getHeight();
-
     imebra::ReadingDataHandlerNumeric dataHandler(image.getReadingDataHandler());
 
     imebra::Image *pFinalImage = &image;

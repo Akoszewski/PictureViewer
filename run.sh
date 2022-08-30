@@ -4,4 +4,5 @@ cd build
 qmake ..
 make || exit -1
 cd ..
+# cp -R ./images/ ./build/
 ./build/PictureViewer

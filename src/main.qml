@@ -20,7 +20,7 @@ Window {
 
     FolderListModel {
         id: folderModel
-        folder: "file:///home/arek/PictureViewer/images/DICOM/"
+        folder: "file:///home/sim/PictureViewer/images/DICOM/"
         nameFilters: [ "*" ]
     }
 
