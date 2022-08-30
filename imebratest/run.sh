@@ -1,2 +1,2 @@
-g++ main.cpp -o prg -limebra
-./prg
+g++ main.cpp -o prg.exe -limebra
+./prg.exe

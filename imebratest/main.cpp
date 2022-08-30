@@ -6,7 +6,7 @@ int main()
 {
     // pobranie danych z pliku DICOM:
     imebra::DataSet
-        loadedDataSet(imebra::CodecFactory::load("image-000001.dcm", 2048));
+        loadedDataSet(imebra::CodecFactory::load("image-00000.dcm", 2048));
     string studyId_S =
         loadedDataSet.getString(imebra::TagId(imebra::tagId_t::StudyInstanceUID_0020_000D), 0);
     imebra::UnicodePatientName patientName =
