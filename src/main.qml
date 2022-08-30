@@ -6,7 +6,7 @@ import QtQuick.Window 2.15
 import "Components/"
 
 Window {
-    property string currFileName: "image-000001.dcm"
+    property string currFileName: "image-00000.dcm"
     property int containerWidth: window.width * 0.4
     property int containerHeight: window.width * 0.4
     property int containerMargin: window.width * 0.05
