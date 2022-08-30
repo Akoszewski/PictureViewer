@@ -6,7 +6,7 @@ import QtQuick.Window 2.15
 import "Components/"
 
 Window {
-    property string currFileName: "pic.jpg"
+    property string currFileName: "image-000001.dcm"
     property int containerWidth: window.width * 0.4
     property int containerHeight: window.width * 0.4
     property int containerMargin: window.width * 0.05
@@ -16,11 +16,11 @@ Window {
     width: 1200
     height: 800
     visible: true
-    title: qsTr("Hello World")
+    title: qsTr("Dicom Picture Viewer")
 
     FolderListModel {
         id: folderModel
-        folder: "qrc:/images/DICOM/series-000001"
+        folder: "file:///home/arek/PictureViewer/images/DICOM/"
         nameFilters: [ "*" ]
     }
 
