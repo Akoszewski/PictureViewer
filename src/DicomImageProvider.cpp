@@ -23,11 +23,10 @@ QPixmap DicomImageProvider::requestPixmap(const QString &id, QSize *size, const 
     imebra::Image image(loadedDataSet.getImageApplyModalityTransform(0));
     imebra::ReadingDataHandlerNumeric dataHandler(image.getReadingDataHandler());
 
-    imebra::Image *pFinalImage = &image;
     imebra::FileStreamOutput writeJpeg("/dev/shm/image.jpg"); // powinno sie utworzyc w tymczasowym pliku w pamieci RAM (nie na dysku)
     imebra::StreamWriter writer(writeJpeg);
     const std::string jpegTransferSyntax("1.2.840.10008.1.2.4.50");
-    imebra::CodecFactory::saveImage(writer, *pFinalImage,
+    imebra::CodecFactory::saveImage(writer, image,
                                     jpegTransferSyntax, imebra::imageQuality_t::veryHigh, 8, false,
                                     false, true, false);
 
