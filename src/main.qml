@@ -2,6 +2,7 @@ import QtQuick 2.0
 import QtQuick.Controls 2.12
 import Qt.labs.folderlistmodel 1.0
 import QtQuick.Window 2.15
+import Qt.labs.platform
 
 import "Components/"
 
@@ -18,12 +19,17 @@ Window {
     visible: true
     title: qsTr("Dicom Picture Viewer")
 
+    // FolderListModel {
+    //     id: folderModel
+    //     folder: StandardPaths.writableLocation(StandardPaths.DocumentsLocation) + "images/DICOM/"
+    //     nameFilters: [ "*" ]
+    // }
+
     FolderListModel {
         id: folderModel
-        folder: "file:///home/sim/PictureViewer/images/DICOM/"
+        folder: StandardPaths.writableLocation(StandardPaths.DocumentsLocation) + "/images/DICOM/"
         nameFilters: [ "*" ]
     }
-
     ScrollView {
         id: menu
         width: containerWidth
