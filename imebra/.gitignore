@@ -1,0 +1,7 @@
+ant-*/
+version.property
+imebra_*.zip
+*.user
+*.txt.user*
+.DS_Store
+*.zip
