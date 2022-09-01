@@ -6,6 +6,7 @@ import Qt.labs.platform
 
 import "Components/"
 
+
 Window {
     property string currFileName: "image-00000.dcm"
     property int containerWidth: window.width * 0.4
@@ -20,9 +21,9 @@ Window {
     title: qsTr("Dicom Picture Viewer")
 
     TextField {
+        id: searchBar
         text: "Text"
         cursorVisible: true
-        width: containerWidth * 2
         height: containerHeight * 0.1
         selectByMouse : true
 
@@ -36,9 +37,24 @@ Window {
             horizontalCenter: parent.horizontalCenter
             topMargin: containerHeight * 0.1
             top: parent.top
-            right: img.right
+            right: advancedSearchBtn.left
+            left: window.left
+            rightMargin: containerMargin * 0.25
+
         }
 
+    }
+
+    Button {
+        id: advancedSearchBtn
+        text: "Zaawansowane wyszukiwanie"
+        width: searchBar.width * 0.2
+        height: searchBar.height
+
+        anchors {
+            verticalCenter: searchBar.verticalCenter
+            right: img.right
+        }
     }
 
     FolderListModel {
@@ -48,7 +64,7 @@ Window {
     }
 
     ScrollView {
-        id: menu
+        id: scroll
         width: containerWidth
         height: containerHeight
         clip: true
@@ -71,7 +87,7 @@ Window {
                 label: fileName
                 MouseArea {
                     anchors.fill: parent
-                    onClicked: { 
+                    onClicked: {
                         listView.currentIndex = index;
                         currFileName = delegate.label
                     }
@@ -92,3 +108,4 @@ Window {
         source: "image://DicomImageProvider/" + currFileName
     }
 }
+
