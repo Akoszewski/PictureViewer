@@ -19,6 +19,28 @@ Window {
     visible: true
     title: qsTr("Dicom Picture Viewer")
 
+    TextField {
+        text: "Text"
+        cursorVisible: true
+        width: containerWidth * 2
+        height: containerHeight * 0.1
+        selectByMouse : true
+
+        background: Rectangle {
+            radius: 2
+            border.color: "#333"
+            border.width: 1
+        }
+
+        anchors {
+            horizontalCenter: parent.horizontalCenter
+            topMargin: containerHeight * 0.1
+            top: parent.top
+            right: img.right
+        }
+
+    }
+
     FolderListModel {
         id: folderModel
         folder: StandardPaths.writableLocation(StandardPaths.DocumentsLocation) + "/images/DICOM/"
