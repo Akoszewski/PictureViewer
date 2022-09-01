@@ -34,13 +34,12 @@ Window {
         }
 
         anchors {
-            horizontalCenter: parent.horizontalCenter
             topMargin: containerHeight * 0.1
             top: parent.top
             right: advancedSearchBtn.left
-            left: window.left
+            left: scroll.left
+            leftMargin: containerMargin * 0.25
             rightMargin: containerMargin * 0.25
-
         }
 
     }
@@ -48,7 +47,7 @@ Window {
     Button {
         id: advancedSearchBtn
         text: "Zaawansowane wyszukiwanie"
-        width: searchBar.width * 0.2
+        width: window.width * 0.2
         height: searchBar.height
 
         anchors {
