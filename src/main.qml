@@ -14,11 +14,11 @@ Item {
     property int containerMargin: window.width * 0.05
 
     Window {
-        id: window2
-        width: 200
-        height: 200
+        id: advSearchWindow
+        width: 800
+        height: 600
         visible: false
-        title: qsTr("Dicom Picture Viewer 2")
+        title: qsTr("Okno wyszukiwania zaawansowanego")
     }
     
     Window {
@@ -57,7 +57,7 @@ Item {
             text: "Zaawansowane wyszukiwanie"
             width: window.width * 0.2
             height: searchBar.height
-            onClicked: window2.visible = true
+            onClicked: advSearchWindow.visible = true
 
             anchors {
                 verticalCenter: searchBar.verticalCenter
