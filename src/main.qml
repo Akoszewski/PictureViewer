@@ -23,6 +23,13 @@ Item {
         Column {
 
             Text {
+                height: advSearchWindow.height * 0.03
+                width: advSearchWindow.width * 0.4
+                horizontalAlignment: Text.AlignHCenter                   
+            }
+
+
+            Text {
                 id: patientSearchText
                 height: advSearchWindow.height * 0.07
                 width: advSearchWindow.width 
@@ -47,7 +54,8 @@ Item {
                     height: advSearchWindow.height * 0.05
                     width: advSearchWindow.width * 0.4
                     horizontalAlignment: Text.AlignHCenter
-
+                    selectByMouse : true
+                    validator: IntValidator {bottom: 1; top: 9999999;} 
                     background: Rectangle {
                         radius: 2
                         color: "aliceblue"
@@ -73,6 +81,11 @@ Item {
                     height: advSearchWindow.height * 0.05
                     width: advSearchWindow.width * 0.4
                     horizontalAlignment: Text.AlignHCenter
+                    selectByMouse : true
+
+                    validator: RegularExpressionValidator{
+                        regularExpression: /^[0-9]{11}|99999999999/
+                    }
 
                     background: Rectangle {
                         radius: 2
@@ -99,6 +112,7 @@ Item {
                     height: advSearchWindow.height * 0.05
                     width: advSearchWindow.width * 0.4
                     horizontalAlignment: Text.AlignHCenter
+                    selectByMouse : true
 
                     background: Rectangle {
                         radius: 2
@@ -125,6 +139,7 @@ Item {
                     height: advSearchWindow.height * 0.05
                     width: advSearchWindow.width * 0.4
                     horizontalAlignment: Text.AlignHCenter
+                    selectByMouse : true
 
                     background: Rectangle {
                         radius: 2
@@ -151,7 +166,10 @@ Item {
                     height: advSearchWindow.height * 0.05
                     width: advSearchWindow.width * 0.4
                     horizontalAlignment: Text.AlignHCenter
-
+                    selectByMouse : true
+                    validator: RegularExpressionValidator{
+                        regularExpression: /^[1-9][0-9]{1}|[1][0-9]{2}|199/
+                    }
                     background: Rectangle {
                         radius: 2
                         color: "aliceblue"
@@ -162,6 +180,16 @@ Item {
                 }
             }
 
+
+
+            Text {
+                height: advSearchWindow.height * 0.03
+                width: advSearchWindow.width * 0.4
+                horizontalAlignment: Text.AlignHCenter                   
+            }
+
+
+
             Text {
                 id: studySearchText
                 height: advSearchWindow.height * 0.07
@@ -169,6 +197,7 @@ Item {
                 text: "Wyszukiwanie badania"
                 font.bold: true
                 horizontalAlignment: Text.AlignHCenter
+                
                 
             }
 
@@ -187,6 +216,8 @@ Item {
                     height: advSearchWindow.height * 0.05
                     width: advSearchWindow.width * 0.4
                     horizontalAlignment: Text.AlignHCenter
+                    selectByMouse : true
+                    validator: IntValidator {bottom: 1; top: 9999999;} 
 
                     background: Rectangle {
                         radius: 2
@@ -208,11 +239,25 @@ Item {
                     
                 }
 
-                TextField {
+                ComboBox {
+                    model: ["CT", "MRI", "XR", "PET"]
+                    height: advSearchWindow.height * 0.05
+                    width: advSearchWindow.width * 0.4
+                    background: Rectangle {
+                        radius: 2
+                        color: "aliceblue"
+                        border.color: "grey"
+                        border.width: 0.5
+                    }
+                }
+
+                /* Inny rodzaj pola - zwykly textfield bez predefiniowanych/sugerowanych wartości
+                TextField {       
                     id: studyTypeField
                     height: advSearchWindow.height * 0.05
                     width: advSearchWindow.width * 0.4
                     horizontalAlignment: Text.AlignHCenter
+                    selectByMouse : true
 
                     background: Rectangle {
                         radius: 2
@@ -221,7 +266,7 @@ Item {
                         border.width: 0.5
                     }
                     
-                }
+                }*/
             }
 
             Row {
@@ -239,7 +284,11 @@ Item {
                     height: advSearchWindow.height * 0.05
                     width: advSearchWindow.width * 0.4
                     horizontalAlignment: Text.AlignHCenter
-
+                    selectByMouse: true
+                    inputMethodHints: Qt.ImhDate
+                    onActiveFocusChanged: {
+                        inputMask= "00-00-0000"
+                    }
                     background: Rectangle {
                         radius: 2
                         color: "aliceblue"
@@ -265,6 +314,7 @@ Item {
                     height: advSearchWindow.height * 0.05
                     width: advSearchWindow.width * 0.4
                     horizontalAlignment: Text.AlignHCenter
+                    selectByMouse : true
 
                     background: Rectangle {
                         radius: 2
@@ -276,12 +326,19 @@ Item {
                 }
             }
 
+            Text {
+                height: advSearchWindow.height * 0.07
+                width: advSearchWindow.width * 0.4
+                horizontalAlignment: Text.AlignHCenter                   
+                }
+
 
             Button {
                 id: confirmSearchBtn
                 text: "Szukaj"
                 height: advSearchWindow.height * 0.05
                 width: advSearchWindow.width * 0.4
+                onClicked: advSearchWindow.visible = false //ewentualnie mozna wyrzucic
 
                 anchors {
                     horizontalCenter: patientSearchText.horizontalCenter
@@ -303,8 +360,8 @@ Item {
 
         TextField {
             id: searchBar
-            cursorVisible: true
             height: containerHeight * 0.1
+            cursorVisible: true
             selectByMouse : true
 
             background: Rectangle {
