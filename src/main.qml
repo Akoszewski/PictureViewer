@@ -15,10 +15,282 @@ Item {
 
     Window {
         id: advSearchWindow
-        width: 800
-        height: 600
+        width: 600
+        height: 500
         visible: false
         title: qsTr("Okno wyszukiwania zaawansowanego")
+
+        Column {
+
+            Text {
+                id: patientSearchText
+                height: advSearchWindow.height * 0.07
+                width: advSearchWindow.width 
+                text: "Wyszukiwanie pacjenta"
+                font.bold: true
+                horizontalAlignment: Text.AlignHCenter
+                
+            }
+
+            Row {
+                Text {
+                    id: patientIdText
+                    height: advSearchWindow.height * 0.07
+                    width: advSearchWindow.width * 0.4
+                    text: "ID pacjenta"
+                    horizontalAlignment: Text.AlignHCenter
+                    
+                }
+
+                TextField {
+                    id: patientIdField
+                    height: advSearchWindow.height * 0.05
+                    width: advSearchWindow.width * 0.4
+                    horizontalAlignment: Text.AlignHCenter
+
+                    background: Rectangle {
+                        radius: 2
+                        color: "aliceblue"
+                        border.color: "grey"
+                        border.width: 0.5
+                    }
+                    
+                }
+            }
+
+            Row {
+                Text {
+                    id: patientPESELText
+                    height: advSearchWindow.height * 0.07
+                    width: advSearchWindow.width * 0.4
+                    text: "PESEL"
+                    horizontalAlignment: Text.AlignHCenter
+                    
+                }
+
+                TextField {
+                    id: patientPESELField
+                    height: advSearchWindow.height * 0.05
+                    width: advSearchWindow.width * 0.4
+                    horizontalAlignment: Text.AlignHCenter
+
+                    background: Rectangle {
+                        radius: 2
+                        color: "aliceblue"
+                        border.color: "grey"
+                        border.width: 0.5
+                    }
+                    
+                }
+            }
+
+            Row {
+                Text {
+                    id: patientNameText
+                    height: advSearchWindow.height * 0.07
+                    width: advSearchWindow.width * 0.4
+                    text: "Imię pacjenta"
+                    horizontalAlignment: Text.AlignHCenter
+                    
+                }
+
+                TextField {
+                    id: patientNameField
+                    height: advSearchWindow.height * 0.05
+                    width: advSearchWindow.width * 0.4
+                    horizontalAlignment: Text.AlignHCenter
+
+                    background: Rectangle {
+                        radius: 2
+                        color: "aliceblue"
+                        border.color: "grey"
+                        border.width: 0.5
+                    }
+                    
+                }
+            }
+
+            Row {
+                Text {
+                    id: patientSurnameText
+                    height: advSearchWindow.height * 0.07
+                    width: advSearchWindow.width * 0.4
+                    text: "Nazwisko pacjenta"
+                    horizontalAlignment: Text.AlignHCenter
+                    
+                }
+
+                TextField {
+                    id: patientSurnameField
+                    height: advSearchWindow.height * 0.05
+                    width: advSearchWindow.width * 0.4
+                    horizontalAlignment: Text.AlignHCenter
+
+                    background: Rectangle {
+                        radius: 2
+                        color: "aliceblue"
+                        border.color: "grey"
+                        border.width: 0.5
+                    }
+                    
+                }
+            }
+
+            Row {
+                Text {
+                    id: patientAgeText
+                    height: advSearchWindow.height * 0.07
+                    width: advSearchWindow.width * 0.4
+                    text: "Wiek pacjenta"
+                    horizontalAlignment: Text.AlignHCenter
+                    
+                }
+
+                TextField {
+                    id: patientAgeField
+                    height: advSearchWindow.height * 0.05
+                    width: advSearchWindow.width * 0.4
+                    horizontalAlignment: Text.AlignHCenter
+
+                    background: Rectangle {
+                        radius: 2
+                        color: "aliceblue"
+                        border.color: "grey"
+                        border.width: 0.5
+                    }
+                    
+                }
+            }
+
+            Text {
+                id: studySearchText
+                height: advSearchWindow.height * 0.07
+                width: advSearchWindow.width 
+                text: "Wyszukiwanie badania"
+                font.bold: true
+                horizontalAlignment: Text.AlignHCenter
+                
+            }
+
+            Row {
+                Text {
+                    id: studyIdText
+                    height: advSearchWindow.height * 0.07
+                    width: advSearchWindow.width * 0.4
+                    text: "ID badania"
+                    horizontalAlignment: Text.AlignHCenter
+                    
+                }
+
+                TextField {
+                    id: studyIdField
+                    height: advSearchWindow.height * 0.05
+                    width: advSearchWindow.width * 0.4
+                    horizontalAlignment: Text.AlignHCenter
+
+                    background: Rectangle {
+                        radius: 2
+                        color: "aliceblue"
+                        border.color: "grey"
+                        border.width: 0.5
+                    }
+                    
+                }
+            }
+
+            Row {
+                Text {
+                    id: studyTypeText
+                    height: advSearchWindow.height * 0.07
+                    width: advSearchWindow.width * 0.4
+                    text: "Rodzaj badania"
+                    horizontalAlignment: Text.AlignHCenter
+                    
+                }
+
+                TextField {
+                    id: studyTypeField
+                    height: advSearchWindow.height * 0.05
+                    width: advSearchWindow.width * 0.4
+                    horizontalAlignment: Text.AlignHCenter
+
+                    background: Rectangle {
+                        radius: 2
+                        color: "aliceblue"
+                        border.color: "grey"
+                        border.width: 0.5
+                    }
+                    
+                }
+            }
+
+            Row {
+                Text {
+                    id: studyDateText
+                    height: advSearchWindow.height * 0.07
+                    width: advSearchWindow.width * 0.4
+                    text: "Data badania"
+                    horizontalAlignment: Text.AlignHCenter
+                    
+                }
+
+                TextField {
+                    id: studyDateField
+                    height: advSearchWindow.height * 0.05
+                    width: advSearchWindow.width * 0.4
+                    horizontalAlignment: Text.AlignHCenter
+
+                    background: Rectangle {
+                        radius: 2
+                        color: "aliceblue"
+                        border.color: "grey"
+                        border.width: 0.5
+                    }
+                    
+                }
+            }
+
+            Row {
+                Text {
+                    id: studyNameText
+                    height: advSearchWindow.height * 0.07
+                    width: advSearchWindow.width * 0.4
+                    text: "Nazwa badania"
+                    horizontalAlignment: Text.AlignHCenter
+                    
+                }
+
+                TextField {
+                    id: studyNameField
+                    height: advSearchWindow.height * 0.05
+                    width: advSearchWindow.width * 0.4
+                    horizontalAlignment: Text.AlignHCenter
+
+                    background: Rectangle {
+                        radius: 2
+                        color: "aliceblue"
+                        border.color: "grey"
+                        border.width: 0.5
+                    }
+                    
+                }
+            }
+
+
+            Button {
+                id: confirmSearchBtn
+                text: "Szukaj"
+                height: advSearchWindow.height * 0.05
+                width: advSearchWindow.width * 0.4
+
+                anchors {
+                    horizontalCenter: patientSearchText.horizontalCenter
+                }
+            }
+
+            
+        }
+
     }
     
     Window {
