@@ -351,7 +351,6 @@ Item {
     }
     
     Window {
-
         id: window
         width: 1200
         height: 800
@@ -397,7 +396,7 @@ Item {
         FolderListModel {
             id: folderModel
             folder: StandardPaths.writableLocation(StandardPaths.DocumentsLocation) + "/images/DICOM/"
-            nameFilters: [ "*" ]
+            nameFilters: [ searchBar.text + "*" ]
         }
 
         ScrollView {
