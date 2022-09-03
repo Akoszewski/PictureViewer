@@ -7,7 +7,7 @@
 
 using namespace std;
 
-int main()
+void getPatientData()
 {
     // pobranie danych z pliku DICOM:
     imebra::DataSet loadedDataSet(imebra::CodecFactory::load("../images/DICOM/case5b.dcm"));
@@ -29,6 +29,10 @@ int main()
     cout << "age: " << patientAge << endl;
     cout << "gender: " << sex << endl;
     cout << "modality: " << modality << endl;
+}
 
+int main()
+{
+    getPatientData();
     return 0;
 }

@@ -2,13 +2,12 @@ DROP TABLE IF EXISTS patients;
 
 CREATE TABLE patients (
    id serial,
-   name VARCHAR(20) NOT NULL,
-   surname VARCHAR(20),
+   name VARCHAR(50) NOT NULL,
    age INT,
    PRIMARY KEY(id)
 );
 
-INSERT INTO patients (name, surname, age) VALUES ('Jan', 'Kowalski', 23);
-INSERT INTO patients (name, surname, age) VALUES ('Janusz', 'Nowak', 54);
+INSERT INTO patients (name, age) VALUES ('Jan Kowalski', 23);
+INSERT INTO patients (name, age) VALUES ('Janusz Nowak', 54);
 
 SELECT * FROM patients;
