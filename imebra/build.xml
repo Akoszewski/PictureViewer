@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project name="Imebra" default="make_distribution" basedir="." >
+
+    <!-- This is an ant build file -->
+
+    <!--
+
+            Initialize the version number.
+
+            This target takes the environment variables IMEBRA_MAJOR_VERSION, IMEBRA_MINOR_VERSION,
+            IMEBRA_REVISION and BUILD_BRANCH and uses them to build the final product name.
+
+    -->
+    <target name="version" description="Initialize the build number">
+        <exec executable="python3" dir=".">
+            <arg path="./getVersion.py" />
+        </exec>
+        <loadproperties srcFile="version.property" />
+        <property environment="env"/>
+    <property name="fileVersion" value="${version}"/>
+    <property name="fullVersionReadable" value="${version}"/>
+    <property name="productName" value="Imebra ${fullVersionReadable}"/>
+    </target>
+
+
+    <!-- Create the directory for the build -->
+    <target name="create_build_dir" depends="version" description="Create the directory for the final build">
+        <property name="build_release" location="./ant-build" />
+        <delete dir="${build_release}" failonerror="false" />
+        <mkdir dir="${build_release}" />
+        <copy todir="${build_release}/library">
+            <fileset dir="library" />
+        </copy>
+        <copy todir="${build_release}/wrappers/objectivec">
+            <fileset dir="wrappers/objectivec" />
+        </copy>
+        <copy todir="${build_release}/examples">
+            <fileset dir="examples" />
+        </copy>
+        <copy todir="${build_release}/tests">
+            <fileset dir="tests" />
+        </copy>
+        <copy todir="${build_release}/docs">
+            <fileset dir="docs" />
+        </copy>
+        <copy todir="${build_release}/wrappers">
+            <fileset dir="wrappers" />
+        </copy>
+        <copy todir="${build_release}" file="build.xml" />
+        <copy todir="${build_release}" file="readme.rst" />
+        <copy todir="${build_release}" file="license.rst" />
+        <copy todir="${build_release}" file="CMakeLists.txt" />
+    </target>
+
+    <!-- Create the directory for the test execution and code coverage -->
+    <target name="create_test_dir" depends="version" description="Create the directory for the tests execution">
+        <property name="build_dir" location="./ant-build-tests" />
+        <delete dir="${build_dir}" failonerror="false" />
+        <mkdir dir="${build_dir}" />
+
+        <property name="build_library_for_tests" location="${build_dir}/library-build" />
+        <mkdir dir="${build_library_for_tests}" />
+
+        <property name="build_tests" location="${build_dir}/tests-build" />
+        <mkdir dir="${build_tests}" />
+
+        <property name="build_java" location="${build_dir}/java-build" />
+        <mkdir dir="${build_java}" />
+        <property name="build_jar" location="${build_dir}/jar-build" />
+        <mkdir dir="${build_jar}" />
+        <property name="build_jni" location="${build_dir}/jni-build" />
+        <mkdir dir="${build_jni}" />
+    </target>
+
+    <!-- Create the directory for the test build in release mode -->
+    <target name="create_test_dir_release" depends="version" description="Create the directory for the build in release mode">
+        <property name="build_dir_release" location="./ant-build-tests_release" />
+        <delete dir="${build_dir_release}" failonerror="false" />
+        <mkdir dir="${build_dir_release}" />
+
+        <property name="build_library_for_tests_release" location="${build_dir_release}/library-build" />
+        <mkdir dir="${build_library_for_tests_release}" />
+
+        <property name="build_tests_release" location="${build_dir_release}/tests-build" />
+        <mkdir dir="${build_tests_release}" />
+
+        <property name="build_java_release" location="${build_dir_release}/java-build" />
+        <mkdir dir="${build_java_release}" />
+        <property name="build_jar_release" location="${build_dir_release}/jar-build" />
+        <mkdir dir="${build_jar_release}" />
+        <property name="build_jni_release" location="${build_dir_release}/jni-build" />
+        <mkdir dir="${build_jni_release}" />
+    </target>
+
+    <!-- Replace the version number and license info -->
+    <target name="replace_version" depends="create_build_dir">
+        <replace dir="${build_release}" includes="*.h,*.cpp, *.txt, *.py" token="$version$" value="${fullVersionReadable}" />
+        <replace dir="${build_release}" includes="*.h,*.cpp, *.txt, *.py" token="1.0.0.1" value="${fullVersionReadable}" />
+        <replace dir="${build_release}" includes="*.h,*.cpp, *.txt, *.py" token="&quot;1.0.0.1&quot;" value="&quot;${fullVersionReadable}&quot;" />
+        <replace dir="${build_release}" includes="*.h,*.cpp, *.txt, *.py" token="L&quot;1.0.0.1&quot;" value="L&quot;${fullVersionReadable}&quot;" />
+        <replace dir="${build_release}" includes="*.h,*.cpp, *.txt, *.py" token="1.0.0" value="${short_version}" />
+        <replace dir="${build_release}" includes="*.h,*.cpp, *.txt, *.py" token="&quot;1.0.0&quot;" value="&quot;${short_version}&quot;" />
+        <replace dir="${build_release}" includes="*.h,*.cpp, *.txt, *.py" token="L&quot;1.0.0&quot;" value="L&quot;${short_version}&quot;" />
+        <replace dir="${build_release}" includes="*.h,*.cpp, *.txt, *.py" token="$major_version$" value="${version_major}" />
+        <replace dir="${build_release}" includes="*.h,*.cpp, *.txt, *.py" token="$minor_version$" value="${version_minor}" />
+        <replace file="${build_release}/wrappers/javaWrapper/AndroidManifest.xml" token="&quot;1.0.0&quot;" value="&quot;${short_version}&quot;" />
+        <replace dir="${build_release}" token="$fileHeader$">
+            <replacevalue><![CDATA[
+$imebraVersion$
+
+Imebra: a C++ Dicom library
+
+Copyright (c) 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016
+by Paolo Brandoli/Binarno s.p.
+
+All rights reserved.
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License version 2 as published by
+the Free Software Foundation.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+
+-------------------
+
+If you want to use Imebra commercially then you have to buy the commercial
+license available at http://imebra.com
+
+After you buy the commercial license then you can use Imebra according
+to the terms described in the Imebra Commercial License.
+A copy of the Imebra Commercial License is available at http://imebra.com.
+
+Imebra is available at http://imebra.com
+
+The author can be contacted by email at info@binarno.com or by mail at
+the following address:
+Binarno s.p., Paolo Brandoli
+Rakuseva 14
+1000 Ljubljana
+Slovenia
+
+
+]]></replacevalue>
+        </replace>
+        <replace dir="${build_release}" token="$imebraVersion$" value="${productName}" />
+    </target>
+
+    <!-- JAVA SWIG -->
+    <target name="java_swig" depends="replace_version">
+        <delete dir="${build_release}/wrappers/javaWrapper/src" failonerror="false" />
+        <mkdir dir="${build_release}/wrappers/javaWrapper/src/com/imebra" />
+        <mkdir dir="${build_release}/wrappers/javaWrapper/jni" />
+        <exec executable="swig" failonerror="true" dir="${build_release}/wrappers/">
+            <arg value="-java" />
+            <arg value="-c++" />
+            <arg value="-I${build_release}/library/include" />
+            <arg value="-package" />
+            <arg value="com.imebra" />
+            <arg value="-outdir" />
+            <arg path="${build_release}/wrappers/javaWrapper/src/com/imebra" />
+            <arg value="-o" />
+            <arg path="${build_release}/wrappers/javaWrapper/java_wrapper.cxx" />
+            <arg path="${build_release}/wrappers/swig.i" />
+        </exec>
+
+        <fileset id="existing" dir="${build_release}/wrappers/javaWrapper/src/com/imebra">
+            <patternset id="files">
+                <include name="**/*.java" />
+            </patternset>
+        </fileset>
+
+    </target>
+
+    <target name="swig" depends="java_swig" />
+
+    <target name="imebrajar" depends="java_swig, create_test_dir" >
+        <exec executable="cmake" failonerror="true" dir="${build_jni}">
+            <arg value="--verbose"/>
+            <arg value="-DCMAKE_BUILD_TYPE=Debug" />
+            <arg value="-DIMEBRA_LOG_LEVEL=INFO" />
+            <arg value="-DIMEBRA_LOG_FRAMEWORK=LOG4CXX" />
+            <arg path="${build_release}/wrappers/javaWrapper"/>
+        </exec>
+        <exec executable="make" failonerror="true" dir="${build_jni}" />
+        <copy todir="${build_java}" file="${build_jni}/libimebrajni.so" />
+        <javac srcdir="${build_release}/wrappers/javaWrapper/src" destdir="${build_java}"/>
+        <jar destfile="${build_jar}/imebrajni.jar" basedir="${build_java}" />
+
+    </target>
+
+    <!-- Documentation -->
+    <target name="documentation" depends="replace_version" >
+        <exec executable="sphinx-build" dir="${build_release}/docs">
+            <arg value="-b" />
+            <arg value="html" />
+            <arg path="${build_release}/docs" />
+            <arg path="${build_release}/docs/html" />
+        </exec>
+    </target>
+
+    <target name="create_source_distribution" depends="documentation, swig" >
+        <property name="source_distribution" location="./ant-source-distribution" />
+        <delete dir="${source_distribution}" failonerror="false" />
+        <mkdir dir="${source_distribution}" />
+
+        <copy todir="${source_distribution}/library">
+                <fileset dir="${build_release}/library" />
+        </copy>
+        <copy todir="${source_distribution}/wrappers/objectivec">
+                <fileset dir="${build_release}/wrappers/objectivec" />
+        </copy>
+        <copy todir="${source_distribution}/examples">
+                <fileset dir="${build_release}/examples" />
+        </copy>
+        <copy todir="${source_distribution}/tests">
+                <fileset dir="${build_release}/tests" />
+        </copy>
+        <copy todir="${source_distribution}/wrappers">
+                <fileset dir="${build_release}/wrappers" />
+        </copy>
+        <copy todir="${source_distribution}/docs/html">
+                <fileset dir="${build_release}/docs/html" />
+        </copy>
+        <copy todir="${source_distribution}/docs/">
+                <fileset file="${build_release}/docs/index.html" />
+        </copy>
+        <copy todir="${source_distribution}" file="${build_release}/readme.rst" />
+        <copy todir="${source_distribution}" file="${build_release}/license.rst" />
+        <copy todir="${source_distribution}" file="${build_release}/CMakeLists.txt" />
+    </target>
+
+
+    <!-- Build the test cases (debug mode)-->
+    <target name="build_test_cases" depends="create_source_distribution, create_test_dir" description="Build the Imebra test cases">
+        <exec executable="cmake" failonerror="true" dir="${build_library_for_tests}">
+            <arg value="--verbose"/>
+            <arg value="-DCMAKE_BUILD_TYPE=Debug" />
+            <arg value="-DIMEBRA_LOG_FRAMEWORK=LOG4CXX" />
+            <arg value="-DIMEBRA_LOG_LEVEL=INFO" />
+            <arg path="${build_release}"/>
+        </exec>
+        <exec executable="make" failonerror="true" dir="${build_library_for_tests}" />
+    </target>
+
+    <!-- Build the test cases (release mode)-->
+    <target name="build_test_cases_release" depends="create_source_distribution, create_test_dir_release" description="Build the Imebra test cases in release mode">
+        <exec executable="cmake" failonerror="true" dir="${build_library_for_tests_release}">
+            <arg value="--verbose"/>
+            <arg value="-DCMAKE_BUILD_TYPE=Release" />
+            <arg value="-DIMEBRA_LOG_FRAMEWORK=LOG4CXX" />
+            <arg value="-DIMEBRA_LOG_LEVEL=INFO" />
+            <arg path="${build_release}"/>
+        </exec>
+        <exec executable="make" failonerror="true" dir="${build_library_for_tests_release}" />
+    </target>
+
+    <!-- Run the test cases posix -->
+    <target name="run_test_cases" depends="build_test_cases" description="Run the test cases">
+
+        <!-- Clear coverage -->
+        <exec executable="lcov" dir="${build_tests}" resolveexecutable="true" failonerror="true">
+            <arg value="--zerocounters" />
+            <arg value="--directory" />
+            <arg path="${build_library_for_tests}" />
+            <arg value="--rc" />
+            <arg value="lcov_branch_coverage=1" />
+        </exec>
+        <exec executable="lcov" dir="${build_tests}" resolveexecutable="true" failonerror="true">
+            <arg value="--capture" />
+            <arg value="--initial" />
+            <arg value="--directory" />
+            <arg path="${build_library_for_tests}" />
+            <arg value="--output-file" />
+            <arg path="${build_library_for_tests}/test.info" />
+            <arg value="--rc" />
+            <arg value="lcov_branch_coverage=1" />
+        </exec>
+
+        <!-- Run tests -->
+        <exec executable="ctest" dir="${build_library_for_tests}" resolveexecutable="true" failonerror="true">
+            <arg value="-V" />
+            <arg path="${build_library_for_tests}" />
+        </exec>
+
+        <!-- Collect coverage -->
+        <exec executable="lcov" dir="${build_tests}" resolveexecutable="true" failonerror="true">
+            <arg value="--capture" />
+            <arg value="--no-checksum" />
+            <arg value="--directory" />
+            <arg path="${build_library_for_tests}" />
+            <arg value="--output-file" />
+            <arg path="${build_library_for_tests}/test.info" />
+            <arg value="--rc" />
+            <arg value="lcov_branch_coverage=1" />
+        </exec>
+        <exec executable="lcov" dir="${build_tests}" resolveexecutable="true" failonerror="true">
+            <arg value="--extract" />
+            <arg path="${build_library_for_tests}/test.info" />
+            <arg path="${build_release}/library/*/*.*" />
+            <arg path="${build_release}/library/*/*/*.*" />
+            <arg path="${build_release}/wrappers/objectivec/*/*.*" />
+            <arg path="${build_release}/wrappers/objectivec/*/*/*.*" />
+            <arg value="--output-file" />
+            <arg path="${build_library_for_tests}/extracted.info" />
+            <arg value="--rc" />
+            <arg value="lcov_branch_coverage=1" />
+        </exec>
+        <mkdir dir="${source_distribution}/docs/coverage" />
+        <exec executable="genhtml" dir="${build_tests}" resolveexecutable="true" failonerror="true">
+            <arg value="--rc" />
+            <arg value="lcov_branch_coverage=1" />
+            <arg value="--output-directory" />
+            <arg path="${source_distribution}/docs/coverage" />
+            <arg path="${build_library_for_tests}/extracted.info" />
+        </exec>
+    </target>
+
+    <target name="test_java" depends="create_source_distribution">
+        <!-- Copy the source distribution to don't pollute it -->
+        <property name="java_test" location="./ant-java_test" />
+        <delete dir="${java_test}" failonerror="false" />
+        <mkdir dir="${java_test}" />
+
+        <copy todir="${java_test}">
+            <fileset dir="${source_distribution}" />
+        </copy>
+
+        <mkdir dir="${java_test}/makejni" />
+        <exec executable="cmake" failonerror="true" dir="${java_test}/makejni">
+            <arg value="--verbose"/>
+            <arg value="-DCMAKE_BUILD_TYPE=Debug" />
+            <arg value="-DIMEBRA_LOG_FRAMEWORK=LOG4CXX" />
+            <arg value="-DIMEBRA_LOG_LEVEL=INFO" />
+            <arg path="${source_distribution}/wrappers/javaWrapper"/>
+        </exec>
+        <exec executable="make" failonerror="true" dir="${java_test}/makejni" />
+
+        <mkdir dir="${java_test}/makejni/classes" />
+        <javac srcdir="${source_distribution}/wrappers/javaWrapper/src" destdir="${java_test}/makejni/classes" />
+        <javac srcdir="${source_distribution}/tests/java/src" destdir="${java_test}/makejni/classes" classpath="/usr/share/java/junit4.jar:${java_test}/makejni/classes"/>
+        <junit printsummary="yes" fork="yes" haltonfailure="yes" showoutput="yes" dir="${java_test}/makejni">
+            <classpath>
+                <pathelement location="${java_test}/makejni/classes"/>
+                <pathelement path="/usr/share/java/junit4.jar"/>
+            </classpath>
+            <jvmarg value="-Djava.library.path=${java_test}/makejni"/>
+            <formatter type="plain" usefile="false" />
+            <batchtest fork="yes">
+                <fileset dir="${source_distribution}/tests/java/src">
+                    <include name="**/*Test*" />
+                </fileset>
+            </batchtest>
+        </junit>
+    </target>
+
+    <!-- Build -->
+    <target name="make_distribution" depends="create_source_distribution, run_test_cases, build_test_cases_release, test_java">
+        <zip destfile="imebra_${version_major}_${version_minor}_${version_patch}_${version_build}.zip" basedir="${source_distribution}" />
+    </target>
+
+</project>

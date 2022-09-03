@@ -1,0 +1,11 @@
+image: binarno/imebra_docker_build_git
+
+pipelines:
+  default:
+    - step:
+        script:
+          - alias python=python3
+          - ant 
+        artifacts:
+          - imebra_*.zip
+

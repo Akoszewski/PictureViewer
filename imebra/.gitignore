@@ -5,3 +5,4 @@ imebra_*.zip
 *.txt.user*
 .DS_Store
 *.zip
+artifacts/
