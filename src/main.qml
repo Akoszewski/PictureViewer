@@ -357,6 +357,23 @@ Item {
         visible: true
         title: qsTr("Dicom Picture Viewer")
 
+        Text {
+            id: searchBarText
+            height: containerHeight * 0.1
+            width: window.width * 0.13
+            text: "Wyszukiwanie obrazu:"
+
+            anchors {
+                topMargin: containerHeight * 0.13
+                top: parent.top
+                //right: advancedSearchBtn.left
+                left: scroll.left
+                leftMargin: containerMargin * 0.25
+                //rightMargin: containerMargin * 0.25
+            }
+
+        }
+
         TextField {
             id: searchBar
             height: containerHeight * 0.1
@@ -373,8 +390,8 @@ Item {
                 topMargin: containerHeight * 0.1
                 top: parent.top
                 right: advancedSearchBtn.left
-                left: scroll.left
-                leftMargin: containerMargin * 0.25
+                left: searchBarText.right
+                //leftMargin: containerMargin * 0.05
                 rightMargin: containerMargin * 0.25
             }
 
@@ -444,5 +461,7 @@ Item {
             source: "image://DicomImageProvider/" + currFileName
         }
     }
+
+    
 
 }
