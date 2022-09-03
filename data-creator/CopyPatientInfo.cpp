@@ -20,7 +20,7 @@ int main()
     wstring patientNameCharacter = patientName.getAlphabeticRepresentation();   
     string patientNameCharacter_S(patientNameCharacter.begin(), patientNameCharacter.end());
                                   
-    string patientId_S = loadedDataSet.getString(imebra::TagId(imebra::tagId_t::PatientID_0010_0020), 0);
+    // string patientId_S = loadedDataSet.getString(imebra::TagId(imebra::tagId_t::PatientID_0010_0020), 0);
                 
     uint32_t patientAge = 
             loadedDataSet.getAge(imebra::TagId(imebra::tagId_t::PatientAge_0010_1010), 0, imebra::Age(0, imebra::ageUnit_t::years)).getAgeValue();
