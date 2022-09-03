@@ -3,8 +3,6 @@
 
 #include "Database.h"
 #include "DicomImageProvider.h"
-#include "ReplacePatientInfo.h"
-#include "CopyPatientInfo.h"
 
 using namespace std;
 
@@ -23,13 +21,8 @@ void setupDatabase()
 
 int main(int argc, char *argv[])
 {
-
-
-
-
     QGuiApplication app(argc, argv);
     QQmlApplicationEngine engine;
-    
     
     engine.addImageProvider(QLatin1String("DicomImageProvider"), new DicomImageProvider);
     
