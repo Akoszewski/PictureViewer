@@ -9,8 +9,8 @@ import "Components/"
 Item {
 
     property string currFileName: "image-00000.dcm"
-    property int containerWidth: window.width * 0.4
-    property int containerHeight: window.width * 0.4
+    property int containerWidth: window.width * 0.35
+    property int containerHeight: window.width * 0.35
     property int containerMargin: window.width * 0.05
 
     Window {
@@ -330,7 +330,7 @@ Item {
                 height: advSearchWindow.height * 0.07
                 width: advSearchWindow.width * 0.4
                 horizontalAlignment: Text.AlignHCenter                   
-                }
+            }
 
 
             Button {
@@ -406,7 +406,8 @@ Item {
 
             anchors {
                 verticalCenter: searchBar.verticalCenter
-                right: img.right
+                right: parent.right
+                rightMargin: containerMargin
             }
         }
 
@@ -414,6 +415,25 @@ Item {
             id: folderModel
             folder: StandardPaths.writableLocation(StandardPaths.DocumentsLocation) + "/images/DICOM/"
             nameFilters: [ searchBar.text + "*" ]
+        }
+
+        Text {
+            id: picsListText
+            width: scroll.width
+            height: window.height * 0.05
+            text: "Lista obrazów"
+            font.bold: true
+            horizontalAlignment: Text.AlignHCenter  
+            //font.pixelSize: 15
+
+
+            anchors {
+                top: searchBarText.bottom
+                topMargin: window.height * 0.05
+                horizontalCenter: scroll.horizontalCenter
+
+            }
+
         }
 
         ScrollView {
@@ -426,6 +446,8 @@ Item {
                 left: parent.left
                 verticalCenter: parent.verticalCenter
                 leftMargin: containerMargin
+                top: picsListText.bottom
+            
             }
 
             ListView {
@@ -435,7 +457,7 @@ Item {
                 anchors.fill: scroll
                 delegate: FileListItem {
                     id: delegate
-                    height: 50
+                    height: 30
                     width: scroll.width
                     label: fileName
                     MouseArea {
@@ -452,16 +474,73 @@ Item {
         Image {
             id: img
             anchors {
-                right: parent.right
+                right: imgDescrCol.left
+                //right: parent.right
                 verticalCenter: parent.verticalCenter
-                rightMargin: containerMargin
+                rightMargin: containerMargin * 0.5
             }
             width: containerWidth
             height: containerHeight
             source: "image://DicomImageProvider/" + currFileName
         }
-    }
 
-    
+        Column {
 
+            id: imgDescrCol
+            width: containerWidth * 0.5
+            spacing: 10
+
+            Text {
+                text: "ID Pacjenta: "
+                
+            }
+
+        
+            Text {
+                text: "PESEL: "
+                
+            }
+
+            Text {
+                text: "Wiek: "
+                
+            }
+        
+            Text {
+                text: "ID Badania: "
+                
+            }
+      
+            Text {
+                text: "modalność: "
+                
+            }
+        
+            Text {
+                text: "data badania: "
+                
+            }
+        
+            anchors {
+                right: parent.right
+                verticalCenter: parent.verticalCenter
+                rightMargin: containerMargin
+            }
+
+        } 
+
+        Button {
+            id: loadDataBtn
+            text: "Dodaj dane"
+            width: advancedSearchBtn.width * 0.5
+            height: advancedSearchBtn.height
+            anchors {
+                top: img.bottom
+                topMargin: containerMargin
+                right: parent.right
+                rightMargin: containerMargin
+            }
+
+        }
+    }  
 }
