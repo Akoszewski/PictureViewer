@@ -461,8 +461,8 @@ Item {
         Image {
             id: img
             anchors {
-                right: imgDescrCol.left
-                //right: parent.right
+                // right: imgDescrCol.left
+                right: parent.right
                 verticalCenter: parent.verticalCenter
                 rightMargin: containerMargin * 0.5
             }
@@ -471,50 +471,50 @@ Item {
             source: "image://DicomImageProvider/" + currFileName
         }
 
-        Column {
+        // Column {
 
-            id: imgDescrCol
-            width: containerWidth * 0.5
-            spacing: 10
+        //     id: imgDescrCol
+        //     width: containerWidth * 0.5
+        //     spacing: 10
 
-            Text {
-                text: "ID Pacjenta: "
+        //     Text {
+        //         text: "ID Pacjenta: "
                 
-            }
+        //     }
 
         
-            Text {
-                text: "PESEL: "
+        //     Text {
+        //         text: "PESEL: "
                 
-            }
+        //     }
 
-            Text {
-                text: "Wiek: "
+        //     Text {
+        //         text: "Wiek: "
                 
-            }
+        //     }
         
-            Text {
-                text: "ID Badania: "
+        //     Text {
+        //         text: "ID Badania: "
                 
-            }
+        //     }
       
-            Text {
-                text: "modalność: "
+        //     Text {
+        //         text: "modalność: "
                 
-            }
+        //     }
         
-            Text {
-                text: "data badania: "
+        //     Text {
+        //         text: "data badania: "
                 
-            }
+        //     }
         
-            anchors {
-                right: parent.right
-                verticalCenter: parent.verticalCenter
-                rightMargin: containerMargin
-            }
+        //     anchors {
+        //         right: parent.right
+        //         verticalCenter: parent.verticalCenter
+        //         rightMargin: containerMargin
+        //     }
 
-        } 
+        // }
 
         Button {
             id: loadDataBtn
