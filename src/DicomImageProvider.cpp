@@ -14,7 +14,7 @@ QPixmap DicomImageProvider::requestPixmap(const QString &id, QSize *size, const 
     Q_UNUSED(requestedSize);
 
     qDebug() << "id: " << id;
-    // TODO: Tutaj musi byc wczytywanie plikow dicom i konwersja na QPixmap
+    // wczytywanie plikow dicom i konwersja na QPixmap
     imebra::DataSet loadedDataSet(imebra::CodecFactory::load((QStandardPaths::DocumentsLocation + "/images/DICOM/" + id).toStdString()));
 
     imebra::Image image(loadedDataSet.getImageApplyModalityTransform(0));
