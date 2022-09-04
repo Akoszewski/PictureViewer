@@ -60,12 +60,12 @@ public:
             qDebug() << "gender: " << sex;
             qDebug() << "modality: " << modality;
 
-            db.executeQuery("INSERT INTO patients (name, age) VALUES ('" + patientName + "', " + patientAge + ")");
+            // db.executeQuery("INSERT INTO patients (name, gender, age) VALUES ('" + patientName + "', '" + sex + "', '" + patientAge + "')");
+            // db.executeQuery("INSERT INTO exams (modality, filePath) VALUES ('" + modality + "', '" + fileName + "')");
 
         } catch (imebra::StreamReadError &e) {
             qDebug() << "Exception: " << e.what();
         }
-
     }
 
     void importData(const QString &path)
@@ -77,7 +77,7 @@ public:
             QString fileName = it.next();
             storeDicomDataInDatabase(db, fileName);
         }
-        db.executeQuery("select * from patients", Database::ExecutionMode::Print);
+        // db.executeQuery("select * from patients", Database::ExecutionMode::Print);
     }
 };
 
