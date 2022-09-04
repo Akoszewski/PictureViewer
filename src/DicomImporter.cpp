@@ -32,13 +32,13 @@ void DicomImporter::importDicomData(DatabaseConnection &db, const QString &fileP
                     
         QString patientAge = QString::number(loadedDataSet.getAge(imebra::TagId(imebra::tagId_t::PatientAge_0010_1010), 0, imebra::Age(0, imebra::ageUnit_t::years)).getAgeValue());
 
-        qDebug() << "name: " <<  patientName;
-        qDebug() << "age: " <<  patientAge;
-        qDebug() << "gender: " << sex;
-        qDebug() << "modality: " << modality;
+        // qDebug() << "name: " <<  patientName;
+        // qDebug() << "age: " <<  patientAge;
+        // qDebug() << "gender: " << sex;
+        // qDebug() << "modality: " << modality;
 
-        // db.executeQuery("INSERT INTO patients (name, gender, age) VALUES ('" + patientName + "', '" + sex + "', '" + patientAge + "')");
-        // db.executeQuery("INSERT INTO exams (modality, filePath) VALUES ('" + modality + "', '" + filePath + "')");
+        db.executeQuery("INSERT INTO patients (name, gender, age) VALUES ('" + patientName + "', '" + sex + "', '" + patientAge + "')");
+        db.executeQuery("INSERT INTO exams (modality, filePath) VALUES ('" + modality + "', '" + filePath + "')");
 
     } catch (imebra::StreamReadError &e) {
         qDebug() << "Exception: " << e.what();

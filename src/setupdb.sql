@@ -1,9 +1,10 @@
 DROP TABLE IF EXISTS patients;
+DROP TABLE IF EXISTS exams;
 
 CREATE TABLE patients (
    id serial,
    name VARCHAR(50) NOT NULL,
-   gender VARCHAR(1)
+   gender VARCHAR(32),
    age INT,
    PRIMARY KEY(id)
 );
@@ -14,8 +15,3 @@ CREATE TABLE exams (
    filePath VARCHAR(1024),
    PRIMARY KEY(id)
 );
-
-INSERT INTO patients (name, gender, age) VALUES ('Jan Kowalski', 'M', 23);
-INSERT INTO patients (name, gender, age) VALUES ('Janusz Nowak', 'K', 54);
-
-INSERT INTO exams (modality, filePath) VALUES ('mod', 'path/to/file');
