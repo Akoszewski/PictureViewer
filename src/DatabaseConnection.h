@@ -1,9 +1,9 @@
-#ifndef DATABASE_H
-#define DATABASE_H
+#ifndef DATABASE_CONNECTION_H
+#define DATABASE_CONNECTION_H
 
 #include <QtSql>
 
-class Database
+class DatabaseConnection
 {
 public:
     enum class ExecutionMode
@@ -11,8 +11,8 @@ public:
         Silent,
         Print
     };
-    Database(const QString& dbname);
-    ~Database();
+    DatabaseConnection(const QString& dbname);
+    ~DatabaseConnection();
     void executeQuery(const QString& queryStr, ExecutionMode mode = ExecutionMode::Silent);
     void printQueryResult(QSqlQuery& query);
     void executeSqlFile(const QString& fileName);
