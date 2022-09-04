@@ -9,9 +9,6 @@ import "Components/"
 
 Item {
 
-    // property string currFileName: ""
-    // property int containerWidth: window.width * 0.35
-    // property int containerHeight: window.width * 0.35
     property string currFileName: ""
     property int containerWidth: window.width * 0.4
     property int containerHeight: window.width * 0.4
@@ -334,7 +331,7 @@ Item {
                 height: advSearchWindow.height * 0.07
                 width: advSearchWindow.width * 0.4
                 horizontalAlignment: Text.AlignHCenter                   
-            }
+                }
 
 
             Button {
@@ -361,13 +358,28 @@ Item {
         visible: true
         title: qsTr("Dicom Picture Viewer")
 
+        Text {
+            id: searchBarText
+            height: containerHeight * 0.1
+            width: window.width * 0.13
+            text: "Wyszukiwanie obrazu:"
+
+            anchors {
+                topMargin: containerHeight * 0.13
+                top: parent.top
+                //right: advancedSearchBtn.left
+                left: scroll.left
+                leftMargin: containerMargin * 0.25
+                //rightMargin: containerMargin * 0.25
+            }
+
+        }
 
         TextField {
             id: searchBar
             height: containerHeight * 0.1
             cursorVisible: true
             selectByMouse : true
-            placeholderText: "Wyszukiwanie pliku, np. case1.dcm"
 
             background: Rectangle {
                 radius: 2
@@ -379,8 +391,8 @@ Item {
                 topMargin: containerHeight * 0.1
                 top: parent.top
                 right: advancedSearchBtn.left
-                left: parent.left
-                leftMargin: containerMargin 
+                left: searchBarText.right
+                //leftMargin: containerMargin * 0.05
                 rightMargin: containerMargin * 0.25
             }
 
@@ -395,34 +407,8 @@ Item {
 
             anchors {
                 verticalCenter: searchBar.verticalCenter
-                right: parent.right
-                rightMargin: containerMargin
+                right: img.right
             }
-        }
-
-        FolderListModel {
-            id: folderModel
-            folder: StandardPaths.writableLocation(StandardPaths.DocumentsLocation) + "/images/DICOM/"
-            nameFilters: [ searchBar.text + "*" ]
-        }
-
-        Text {
-            id: picsListText
-            width: scroll.width
-            height: window.height * 0.05
-            text: "Lista obrazów"
-            font.bold: true
-            horizontalAlignment: Text.AlignHCenter  
-            font.pixelSize: 15
-
-
-            anchors {
-                top: searchBar.bottom
-                topMargin: window.height * 0.05
-                horizontalCenter: scroll.horizontalCenter
-
-            }
-
         }
 
         ScrollView {
@@ -435,10 +421,6 @@ Item {
                 left: parent.left
                 verticalCenter: parent.verticalCenter
                 leftMargin: containerMargin
-                top: picsListText.bottom
-                right: img.left
-                rightMargin: containerMargin * 0.5
-            
             }
 
             TableView {
@@ -448,8 +430,8 @@ Item {
                 anchors.fill: scroll
                 delegate: TableItem {
                     id: delegate
-                    height: 30
-                    width: scroll / 3
+                    height: 50
+                    width: scroll.width
                     label: model.display
                     selectedTableIndex: tableView.selectedIndex
                     MouseArea {
@@ -466,72 +448,16 @@ Item {
         Image {
             id: img
             anchors {
-                // right: imgDescrCol.left
                 right: parent.right
                 verticalCenter: parent.verticalCenter
-                rightMargin: containerMargin * 0.5
+                rightMargin: containerMargin
             }
             width: containerWidth
             height: containerHeight
             source: "image://DicomImageProvider/" + currFileName
         }
+    }
 
-        // Column {
+    
 
-        //     id: imgDescrCol
-        //     width: containerWidth * 0.5
-        //     spacing: 10
-
-        //     Text {
-        //         text: "ID Pacjenta: "
-                
-        //     }
-
-        
-        //     Text {
-        //         text: "PESEL: "
-                
-        //     }
-
-        //     Text {
-        //         text: "Wiek: "
-                
-        //     }
-        
-        //     Text {
-        //         text: "ID Badania: "
-                
-        //     }
-      
-        //     Text {
-        //         text: "modalność: "
-                
-        //     }
-        
-        //     Text {
-        //         text: "data badania: "
-                
-        //     }
-        
-        //     anchors {
-        //         right: parent.right
-        //         verticalCenter: parent.verticalCenter
-        //         rightMargin: containerMargin
-        //     }
-
-        // }
-
-        Button {
-            id: loadDataBtn
-            text: "Import danych"
-            width: advancedSearchBtn.width 
-            height: advancedSearchBtn.height
-            anchors {
-                bottom: parent.bottom
-                bottomMargin: containerMargin
-                horizontalCenter: parent.horizontalCenter
-            }
-
-        }
-    }  
 }
