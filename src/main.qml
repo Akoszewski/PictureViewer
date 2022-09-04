@@ -428,9 +428,28 @@ Item {
                 leftMargin: containerMargin
             }
 
-            ListView {
-                property var currentSelectedItem
-                id: listView
+            // ListView {
+            //     property var currentSelectedItem
+            //     id: listView
+            //     model: folderModel
+            //     anchors.fill: scroll
+            //     delegate: FileListItem {
+            //         id: delegate
+            //         height: 50
+            //         width: scroll.width
+            //         label: fileName
+            //         MouseArea {
+            //             anchors.fill: parent
+            //             onClicked: {
+            //                 listView.currentIndex = index;
+            //                 currFileName = delegate.label
+            //             }
+            //         }
+            //     }
+            // }
+            TableView {
+                property int selectedIndex
+                id: tableView
                 model: folderModel
                 anchors.fill: scroll
                 delegate: FileListItem {
@@ -438,10 +457,11 @@ Item {
                     height: 50
                     width: scroll.width
                     label: fileName
+                    selectedTableIndex: tableView.selectedIndex
                     MouseArea {
                         anchors.fill: parent
                         onClicked: {
-                            listView.currentIndex = index;
+                            tableView.selectedIndex = index;
                             currFileName = delegate.label
                         }
                     }

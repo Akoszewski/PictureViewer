@@ -4,8 +4,9 @@ import QtQuick.Controls 2.0
 
 ItemDelegate {
     property alias label: contentText.text
+    property int selectedTableIndex
     id: delegate
-    highlighted: ListView.isCurrentItem
+    highlighted: selectedTableIndex == index
     contentItem: Text {
         id: contentText
         font.pixelSize: 20
