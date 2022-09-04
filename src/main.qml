@@ -9,7 +9,7 @@ import "Components/"
 
 Item {
 
-    property string currFileName: "image-00000.dcm"
+    property string currFileName: ""
     property int containerWidth: window.width * 0.4
     property int containerHeight: window.width * 0.4
     property int containerMargin: window.width * 0.05
