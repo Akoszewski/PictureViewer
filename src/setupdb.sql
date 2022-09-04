@@ -1,14 +1,17 @@
 DROP TABLE IF EXISTS patients;
+DROP TABLE IF EXISTS exams;
 
 CREATE TABLE patients (
    id serial,
-   name VARCHAR(20) NOT NULL,
-   surname VARCHAR(20),
+   name VARCHAR(50) NOT NULL,
+   gender VARCHAR(32),
    age INT,
    PRIMARY KEY(id)
 );
 
-INSERT INTO patients (name, surname, age) VALUES ('Jan', 'Kowalski', 23);
-INSERT INTO patients (name, surname, age) VALUES ('Janusz', 'Nowak', 54);
-
-SELECT * FROM patients;
+CREATE TABLE exams (
+   id serial,
+   modality VARCHAR(3),
+   filePath VARCHAR(1024),
+   PRIMARY KEY(id)
+);

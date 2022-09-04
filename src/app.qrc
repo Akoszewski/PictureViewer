@@ -1,7 +1,7 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
-        <file>Components/FileListItem.qml</file>
+        <file>Components/TableItem.qml</file>
         <file>setupdb.sql</file>
     </qresource>
 </RCC>

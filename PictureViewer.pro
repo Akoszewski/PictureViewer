@@ -3,13 +3,17 @@ QT += quickcontrols2
 QT += sql
 
 SOURCES += \
-    src/Database.cpp \
+    src/DatabaseConnection.cpp \
     src/DicomImageProvider.cpp \
+    src/DicomImporter.cpp \
+    src/DicomTableModel.cpp \
     src/main.cpp
 
 HEADERS += \
-    src/Database.h
-    src/DicomImageProvider.h
+    src/DatabaseConnection.h \
+    src/DicomImageProvider.h \
+    src/DicomImporter.h \
+    src/DicomTableModel.h
 
 RESOURCES += \
     src/app.qrc
@@ -18,5 +22,5 @@ LIBS += -limebra
 
 DISTFILES += \
     README.md \
-    src/Components/FileListItem.qml \
+    src/Components/TableItem.qml \
     src/main.qml

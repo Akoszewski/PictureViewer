@@ -14,24 +14,26 @@ QPixmap DicomImageProvider::requestPixmap(const QString &id, QSize *size, const 
     Q_UNUSED(requestedSize);
 
     qDebug() << "id: " << id;
-    // TODO: Tutaj musi byc wczytywanie plikow dicom i konwersja na QPixmap
-    imebra::DataSet loadedDataSet(imebra::CodecFactory::load((QStandardPaths::DocumentsLocation + "/images/DICOM/" + id).toStdString()));
-    
-    imebra::UnicodePatientName patientName = loadedDataSet.getUnicodePatientName(imebra::TagId(imebra::tagId_t::PatientName_0010_0010), 0);
-    qDebug() << "Patient name: " << QString::fromStdWString(patientName.getAlphabeticRepresentation());
+    try {
+        // wczytywanie plikow dicom i konwersja na QPixmap
+        imebra::DataSet loadedDataSet(imebra::CodecFactory::load((QStandardPaths::DocumentsLocation + "/" + id).toStdString()));
 
-    imebra::Image image(loadedDataSet.getImageApplyModalityTransform(0));
-    imebra::ReadingDataHandlerNumeric dataHandler(image.getReadingDataHandler());
+        imebra::Image image(loadedDataSet.getImageApplyModalityTransform(0));
+        imebra::ReadingDataHandlerNumeric dataHandler(image.getReadingDataHandler());
 
-    imebra::FileStreamOutput writeJpeg("/dev/shm/image.jpg"); // powinno sie utworzyc w tymczasowym pliku w pamieci RAM (nie na dysku)
-    imebra::StreamWriter writer(writeJpeg);
-    const std::string jpegTransferSyntax("1.2.840.10008.1.2.4.50");
-    imebra::CodecFactory::saveImage(writer, image,
-                                    jpegTransferSyntax, imebra::imageQuality_t::veryHigh, 8, false,
-                                    false, true, false);
+        imebra::FileStreamOutput writeJpeg("/dev/shm/image.jpg"); // powinno sie utworzyc w tymczasowym pliku w pamieci RAM (nie na dysku)
+        imebra::StreamWriter writer(writeJpeg);
+        const std::string jpegTransferSyntax("1.2.840.10008.1.2.4.50");
+        imebra::CodecFactory::saveImage(writer, image,
+                                        jpegTransferSyntax, imebra::imageQuality_t::veryHigh, 8, false,
+                                        false, true, false);
 
-    QPixmap pixmap("/dev/shm/image.jpg");
-    return pixmap;
+        QPixmap pixmap("/dev/shm/image.jpg");
+        return pixmap;
+    } catch (imebra::StreamOpenError& e) {
+        QPixmap pixmap;
+        return pixmap;
+    }
 }
 
 // QPixmap DicomImageProvider::requestPixmap(const QString &id, QSize *size, const QSize &requestedSize)

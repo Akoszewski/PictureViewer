@@ -2,15 +2,19 @@ import QtQuick 2.0
 import QtQuick.Controls 2.12
 import Qt.labs.folderlistmodel 1.0
 import QtQuick.Window 2.15
+import Qt.labs.qmlmodels 1.0
 import Qt.labs.platform
 
 import "Components/"
 
 Item {
 
-    property string currFileName: "image-00000.dcm"
-    property int containerWidth: window.width * 0.35
-    property int containerHeight: window.width * 0.35
+    // property string currFileName: ""
+    // property int containerWidth: window.width * 0.35
+    // property int containerHeight: window.width * 0.35
+    property string currFileName: ""
+    property int containerWidth: window.width * 0.4
+    property int containerHeight: window.width * 0.4
     property int containerMargin: window.width * 0.05
 
     Window {
@@ -437,20 +441,21 @@ Item {
             
             }
 
-            ListView {
-                property var currentSelectedItem
-                id: listView
-                model: folderModel
+            TableView {
+                property int selectedIndex
+                id: tableView
+                model: dicomTableModel
                 anchors.fill: scroll
-                delegate: FileListItem {
+                delegate: TableItem {
                     id: delegate
                     height: 30
                     width: scroll.width
-                    label: fileName
+                    label: model.display
+                    selectedTableIndex: tableView.selectedIndex
                     MouseArea {
                         anchors.fill: parent
                         onClicked: {
-                            listView.currentIndex = index;
+                            tableView.selectedIndex = model.index;
                             currFileName = delegate.label
                         }
                     }
