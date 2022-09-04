@@ -4,8 +4,6 @@
 #include <cstdint>
 #include <QStandardPaths>
 
-#include "Database.h"
-
 DicomImageProvider::DicomImageProvider()
         : QQuickImageProvider(QQuickImageProvider::Pixmap)
 {}
