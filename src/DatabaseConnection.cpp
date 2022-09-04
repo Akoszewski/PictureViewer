@@ -1,6 +1,6 @@
-#include "Database.h"
+#include "DatabaseConnection.h"
 
-Database::Database(const QString& dbname)
+DatabaseConnection::DatabaseConnection(const QString& dbname)
     : name(dbname)
 {
     postgresPassword = "haslo123";
@@ -17,7 +17,7 @@ Database::Database(const QString& dbname)
     }
 }
 
-Database::~Database()
+DatabaseConnection::~DatabaseConnection()
 {
     {
         QSqlDatabase db = QSqlDatabase::database();
@@ -26,7 +26,7 @@ Database::~Database()
     QSqlDatabase::removeDatabase(QSqlDatabase::defaultConnection);
 }
 
-void Database::executeQuery(const QString& queryStr, ExecutionMode mode)
+void DatabaseConnection::executeQuery(const QString& queryStr, ExecutionMode mode)
 {
     QSqlQuery query;
     if (!query.exec(queryStr)) {
@@ -37,7 +37,7 @@ void Database::executeQuery(const QString& queryStr, ExecutionMode mode)
     }
 }
 
-void Database::printQueryResult(QSqlQuery& query)
+void DatabaseConnection::printQueryResult(QSqlQuery& query)
 {
     while (query.next()) {
         QSqlRecord record = query.record();
@@ -49,7 +49,7 @@ void Database::printQueryResult(QSqlQuery& query)
     }
 }
 
-void Database::executeSqlFile(const QString& fileName)
+void DatabaseConnection::executeSqlFile(const QString& fileName)
 {
     QFile file(fileName);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
