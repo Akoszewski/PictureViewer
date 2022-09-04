@@ -357,28 +357,13 @@ Item {
         visible: true
         title: qsTr("Dicom Picture Viewer")
 
-        Text {
-            id: searchBarText
-            height: containerHeight * 0.1
-            width: window.width * 0.13
-            text: "Wyszukiwanie obrazu:"
-
-            anchors {
-                topMargin: containerHeight * 0.13
-                top: parent.top
-                //right: advancedSearchBtn.left
-                left: scroll.left
-                leftMargin: containerMargin * 0.25
-                //rightMargin: containerMargin * 0.25
-            }
-
-        }
 
         TextField {
             id: searchBar
             height: containerHeight * 0.1
             cursorVisible: true
             selectByMouse : true
+            placeholderText: "Wyszukiwanie pliku, np. case1.dcm"
 
             background: Rectangle {
                 radius: 2
@@ -390,8 +375,8 @@ Item {
                 topMargin: containerHeight * 0.1
                 top: parent.top
                 right: advancedSearchBtn.left
-                left: searchBarText.right
-                //leftMargin: containerMargin * 0.05
+                left: parent.left
+                leftMargin: containerMargin 
                 rightMargin: containerMargin * 0.25
             }
 
@@ -424,11 +409,11 @@ Item {
             text: "Lista obrazów"
             font.bold: true
             horizontalAlignment: Text.AlignHCenter  
-            //font.pixelSize: 15
+            font.pixelSize: 15
 
 
             anchors {
-                top: searchBarText.bottom
+                top: searchBar.bottom
                 topMargin: window.height * 0.05
                 horizontalCenter: scroll.horizontalCenter
 
@@ -447,6 +432,8 @@ Item {
                 verticalCenter: parent.verticalCenter
                 leftMargin: containerMargin
                 top: picsListText.bottom
+                right: img.left
+                rightMargin: containerMargin * 0.5
             
             }
 
@@ -531,14 +518,13 @@ Item {
 
         Button {
             id: loadDataBtn
-            text: "Dodaj dane"
-            width: advancedSearchBtn.width * 0.5
+            text: "Import danych"
+            width: advancedSearchBtn.width 
             height: advancedSearchBtn.height
             anchors {
-                top: img.bottom
-                topMargin: containerMargin
-                right: parent.right
-                rightMargin: containerMargin
+                bottom: parent.bottom
+                bottomMargin: containerMargin
+                horizontalCenter: parent.horizontalCenter
             }
 
         }
