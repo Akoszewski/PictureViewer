@@ -6,12 +6,14 @@ SOURCES += \
     src/DatabaseConnection.cpp \
     src/DicomImageProvider.cpp \
     src/DicomImporter.cpp \
+    src/DicomTableModel.cpp \
     src/main.cpp
 
 HEADERS += \
     src/DatabaseConnection.h \
     src/DicomImageProvider.h \
-    src/DicomImporter.h
+    src/DicomImporter.h \
+    src/DicomTableModel.h
 
 RESOURCES += \
     src/app.qrc

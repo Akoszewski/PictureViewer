@@ -1,9 +1,11 @@
 #include "DatabaseConnection.h"
 #include "DicomImageProvider.h"
 #include "DicomImporter.h"
+#include "DicomTableModel.h"
 
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include <QQmlContext>
 
 using namespace std;
 
@@ -33,6 +35,11 @@ int main(int argc, char *argv[])
 
     DicomImporter dicomImporter;
     dicomImporter.importFiles(QStandardPaths::DocumentsLocation + "/images/DICOM/");
+
+    DicomTableModel dicomTableModel;
+
+    QQmlContext* context = engine.rootContext();
+    context->setContextProperty("dicomTableModel", &dicomTableModel);
 
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
     return app.exec();

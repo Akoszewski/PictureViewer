@@ -411,19 +411,6 @@ Item {
             }
         }
 
-        FolderListModel {
-            id: folderModel
-            folder: StandardPaths.writableLocation(StandardPaths.DocumentsLocation) + "/images/DICOM/"
-            nameFilters: [ searchBar.text + "*" ]
-        }
-
-        TableModel {
-            id: tableModel
-            TableModelColumn { display: "name" }
-            rows: [ { "name": "Harry" }, { "name": "Hedwig" } ]
-        }
-
-
         ScrollView {
             id: scroll
             width: containerWidth
@@ -439,8 +426,7 @@ Item {
             TableView {
                 property int selectedIndex
                 id: tableView
-                //model: folderModel
-                model: tableModel
+                model: dicomTableModel
                 anchors.fill: scroll
                 delegate: TableItem {
                     id: delegate
