@@ -13,8 +13,7 @@ public:
     };
     DatabaseConnection(const QString& dbname);
     ~DatabaseConnection();
-    void executeQuery(const QString& queryStr, ExecutionMode mode = ExecutionMode::Silent);
-    void printQueryResult(QSqlQuery& query);
+    QList<QList<QString>> executeQuery(const QString& queryStr, ExecutionMode mode = ExecutionMode::Silent);
     void executeSqlFile(const QString& fileName);
 private:
     QString postgresPassword;

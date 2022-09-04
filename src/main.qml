@@ -2,6 +2,7 @@ import QtQuick 2.0
 import QtQuick.Controls 2.12
 import Qt.labs.folderlistmodel 1.0
 import QtQuick.Window 2.15
+import Qt.labs.qmlmodels 1.0
 import Qt.labs.platform
 
 import "Components/"
@@ -416,6 +417,13 @@ Item {
             nameFilters: [ searchBar.text + "*" ]
         }
 
+        TableModel {
+            id: tableModel
+            TableModelColumn { display: "name" }
+            rows: [ { "name": "Harry" }, { "name": "Hedwig" } ]
+        }
+
+
         ScrollView {
             id: scroll
             width: containerWidth
@@ -428,40 +436,22 @@ Item {
                 leftMargin: containerMargin
             }
 
-            // ListView {
-            //     property var currentSelectedItem
-            //     id: listView
-            //     model: folderModel
-            //     anchors.fill: scroll
-            //     delegate: FileListItem {
-            //         id: delegate
-            //         height: 50
-            //         width: scroll.width
-            //         label: fileName
-            //         MouseArea {
-            //             anchors.fill: parent
-            //             onClicked: {
-            //                 listView.currentIndex = index;
-            //                 currFileName = delegate.label
-            //             }
-            //         }
-            //     }
-            // }
             TableView {
                 property int selectedIndex
                 id: tableView
-                model: folderModel
+                //model: folderModel
+                model: tableModel
                 anchors.fill: scroll
-                delegate: FileListItem {
+                delegate: TableItem {
                     id: delegate
                     height: 50
                     width: scroll.width
-                    label: fileName
+                    label: model.display
                     selectedTableIndex: tableView.selectedIndex
                     MouseArea {
                         anchors.fill: parent
                         onClicked: {
-                            tableView.selectedIndex = index;
+                            tableView.selectedIndex = model.index;
                             currFileName = delegate.label
                         }
                     }

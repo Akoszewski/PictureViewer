@@ -26,27 +26,26 @@ DatabaseConnection::~DatabaseConnection()
     QSqlDatabase::removeDatabase(QSqlDatabase::defaultConnection);
 }
 
-void DatabaseConnection::executeQuery(const QString& queryStr, ExecutionMode mode)
+QList<QList<QString>> DatabaseConnection::executeQuery(const QString& queryStr, ExecutionMode mode)
 {
     QSqlQuery query;
     if (!query.exec(queryStr)) {
         qDebug() << "Failed:" << queryStr << " Reason:" << query.lastError();
     }
-    if (mode == ExecutionMode::Print) {
-        printQueryResult(query);
-    }
-}
 
-void DatabaseConnection::printQueryResult(QSqlQuery& query)
-{
+    QList<QList<QString>> result;
     while (query.next()) {
         QSqlRecord record = query.record();
-        QStringList results;
+        QList<QString> resultRow;
         for (int i = 0; i < record.count(); ++i) {
-            results << record.value(i).toString();
+            resultRow.append(record.value(i).toString());
         }
-        qDebug() << results.join(" ");
+        if (mode == ExecutionMode::Print) {
+            qDebug() << resultRow.join(" ");
+        }
+        result.append(resultRow);
     }
+    return result;
 }
 
 void DatabaseConnection::executeSqlFile(const QString& fileName)

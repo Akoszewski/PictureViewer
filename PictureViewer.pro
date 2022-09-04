@@ -20,5 +20,5 @@ LIBS += -limebra
 
 DISTFILES += \
     README.md \
-    src/Components/FileListItem.qml \
+    src/Components/TableItem.qml \
     src/main.qml
