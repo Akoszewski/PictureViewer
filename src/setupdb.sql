@@ -14,4 +14,5 @@ CREATE TABLE exams (
    modality VARCHAR(3),
    filePath VARCHAR(1024),
    PRIMARY KEY(id)
+   FOREIGN KEY(patientsId) REFERENCES patients(id)
 );
