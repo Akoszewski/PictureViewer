@@ -5,7 +5,7 @@ DicomTableModel::DicomTableModel(QObject *parent)
     : QAbstractTableModel(parent)
 {
     DatabaseConnection db("app_database");
-    table = db.executeQuery("select * from patients INNER JOIN exams ON exams.patientsId = patients.id");
+    table = db.executeQuery("select * from exams INNER JOIN patients ON exams.patientIdentifier = patients.patientIdentifier");
 }
 
 int DicomTableModel::rowCount(const QModelIndex & /*parent*/) const
@@ -15,7 +15,11 @@ int DicomTableModel::rowCount(const QModelIndex & /*parent*/) const
 
 int DicomTableModel::columnCount(const QModelIndex & /*parent*/) const
 {
-    return 3;
+    if (table.size() > 0) {
+        return table[0].size();
+    } else {
+        return 0;
+    }
 }
 
 QVariant DicomTableModel::data(const QModelIndex &index, int role) const

@@ -1,18 +1,20 @@
-DROP TABLE IF EXISTS patients;
+DROP TABLE IF EXISTS patients CASCADE;
 DROP TABLE IF EXISTS exams;
 
 CREATE TABLE patients (
    id serial,
-   name VARCHAR(50) NOT NULL,
+   name VARCHAR(64) NOT NULL,
    gender VARCHAR(32),
    age INT,
-   PRIMARY KEY(id)
+   patientIdentifier VARCHAR(16),
+   PRIMARY KEY(patientIdentifier)
 );
 
 CREATE TABLE exams (
    id serial,
-   modality VARCHAR(3),
+   patientIdentifier VARCHAR(16),
+   modality VARCHAR(16),
    filePath VARCHAR(1024),
-   PRIMARY KEY(id)
-   FOREIGN KEY(patientsId) REFERENCES patients(id)
+   PRIMARY KEY(id),
+   FOREIGN KEY(patientIdentifier) REFERENCES patients(patientIdentifier)
 );
