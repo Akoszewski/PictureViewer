@@ -75,7 +75,7 @@ Item {
                     id: patientPESELText
                     height: advSearchWindow.height * 0.07
                     width: advSearchWindow.width * 0.4
-                    text: "PESEL"
+                    text: "Inne ID (PESEL)"
                     horizontalAlignment: Text.AlignHCenter
                     
                 }
@@ -106,7 +106,7 @@ Item {
                     id: patientNameText
                     height: advSearchWindow.height * 0.07
                     width: advSearchWindow.width * 0.4
-                    text: "Imię pacjenta"
+                    text: "Imię i nazwisko pacjenta"
                     horizontalAlignment: Text.AlignHCenter
                     
                 }
@@ -128,7 +128,31 @@ Item {
                 }
             }
 
+
             Row {
+                Text {
+                    id: patientSexText
+                    height: advSearchWindow.height * 0.07
+                    width: advSearchWindow.width * 0.4
+                    text: "Płeć pacjenta"
+                    horizontalAlignment: Text.AlignHCenter
+                    
+                }
+
+                ComboBox {
+                    model: ["F", "M", "O"]
+                    height: advSearchWindow.height * 0.05
+                    width: advSearchWindow.width * 0.4
+                    background: Rectangle {
+                        radius: 2
+                        color: "aliceblue"
+                        border.color: "grey"
+                        border.width: 0.5
+                    }
+                }
+            }
+
+            /*Row {
                 Text {
                     id: patientSurnameText
                     height: advSearchWindow.height * 0.07
@@ -153,7 +177,7 @@ Item {
                     }
                     
                 }
-            }
+            }*/
 
             Row {
                 Text {
@@ -244,7 +268,7 @@ Item {
                 }
 
                 ComboBox {
-                    model: ["CT", "MRI", "XR", "PET"]
+                    model: ["CT", "MR", "CR", "PT", "US", "OT"]
                     height: advSearchWindow.height * 0.05
                     width: advSearchWindow.width * 0.4
                     background: Rectangle {
