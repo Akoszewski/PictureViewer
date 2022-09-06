@@ -29,14 +29,31 @@ void DicomImporter::importDicomData(DatabaseConnection &db, const QString &fileP
         QString sex = getTag(loadedDataSet, imebra::tagId_t::PatientSex_0010_0040);
         QString modality = getTag(loadedDataSet, imebra::tagId_t::Modality_0008_0060);  
         QString patientId_S = getTag(loadedDataSet, imebra::tagId_t::PatientID_0010_0020);
-                    
         QString patientAge = QString::number(loadedDataSet.getAge(imebra::TagId(imebra::tagId_t::PatientAge_0010_1010), 0, imebra::Age(0, imebra::ageUnit_t::years)).getAgeValue());
 
+        QFileInfo fileInfo(filePath);
+        QString filename(fileInfo.fileName());
+
         db.executeQuery("INSERT INTO patients (name, gender, age, patientIdentifier) VALUES ('" + patientName + "', '" + sex + "', '" + patientAge + "', '" + patientId_S + "')");
-        db.executeQuery("INSERT INTO exams (patientIdentifier, modality, filePath) VALUES ('" + patientId_S + "', '" + modality + "', '" + filePath + "')");
+        db.executeQuery("INSERT INTO exams (patientIdentifier, modality, filePath) VALUES ('" + patientId_S + "', '" + modality + "', '" + filename + "')");
 
     } catch (imebra::StreamReadError &e) {
         qDebug() << "Exception: " << e.what();
+    }
+}
+
+void copyFilesFromDir(const QString& sourcePath, const QString& destPath)
+{
+    QDirIterator iter(sourcePath, QDir::Files);
+    QString fileName;
+    if (!QDir(destPath).exists()) {
+        QDir().mkdir(destPath);
+    }
+    while (iter.hasNext()) {
+        qDebug() << iter.next();
+        fileName = iter.fileName();
+        QFile sourceFile(sourcePath + QDir::separator() + fileName);
+        sourceFile.copy(destPath + QDir::separator() + fileName);
     }
 }
 
@@ -49,5 +66,5 @@ void DicomImporter::importFiles(const QString &path)
         QString fileName = it.next();
         importDicomData(db, fileName);
     }
-    db.executeQuery("select * from patients", DatabaseConnection::ExecutionMode::Print);
+    copyFilesFromDir(path, QStandardPaths::writableLocation(QStandardPaths::AppDataLocation));
 }

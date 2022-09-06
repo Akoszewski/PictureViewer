@@ -402,7 +402,7 @@ Item {
 
         FolderListModel {
             id: folderModel
-            folder: StandardPaths.writableLocation(StandardPaths.DocumentsLocation) + "/images/DICOM/"
+            folder: StandardPaths.writableLocation(StandardPaths.AppDataLocation)
             nameFilters: [ searchBar.text + "*" ]
         }
 

@@ -16,7 +16,7 @@ QPixmap DicomImageProvider::requestPixmap(const QString &id, QSize *size, const 
     qDebug() << "id: " << id;
     try {
         // wczytywanie plikow dicom i konwersja na QPixmap
-        imebra::DataSet loadedDataSet(imebra::CodecFactory::load((QStandardPaths::DocumentsLocation + "/" + id).toStdString()));
+        imebra::DataSet loadedDataSet(imebra::CodecFactory::load((QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + "/" + id).toStdString()));
 
         imebra::Image image(loadedDataSet.getImageApplyModalityTransform(0));
         imebra::ReadingDataHandlerNumeric dataHandler(image.getReadingDataHandler());
@@ -30,7 +30,7 @@ QPixmap DicomImageProvider::requestPixmap(const QString &id, QSize *size, const 
 
         QPixmap pixmap("/dev/shm/image.jpg");
         return pixmap;
-    } catch (imebra::StreamOpenError& e) {
+    } catch (std::runtime_error& e) {
         QPixmap pixmap;
         return pixmap;
     }

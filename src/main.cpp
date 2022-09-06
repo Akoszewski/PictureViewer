@@ -34,7 +34,7 @@ int main(int argc, char *argv[])
     setupDatabase();
 
     DicomImporter dicomImporter;
-    dicomImporter.importFiles(QStandardPaths::DocumentsLocation + "/images/DICOM/");
+    dicomImporter.importFiles(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + "/images/DICOM/");
 
     DicomTableModel dicomTableModel;
 
