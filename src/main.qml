@@ -140,6 +140,7 @@ Item {
                 }
 
                 ComboBox {
+                    id: patientSexField
                     model: ["F", "M", "O"]
                     height: advSearchWindow.height * 0.05
                     width: advSearchWindow.width * 0.4
@@ -268,6 +269,7 @@ Item {
                 }
 
                 ComboBox {
+                    id: studyTypeField
                     model: ["CT", "MR", "CR", "PT", "US", "OT"]
                     height: advSearchWindow.height * 0.05
                     width: advSearchWindow.width * 0.4
@@ -368,8 +370,7 @@ Item {
                 width: advSearchWindow.width * 0.4
                 onClicked: {
                     advSearchWindow.visible = false;
-                    const condition = createCondition();
-                    dicomTableModel.resetTable("where exams.modality = 'CT'");
+                    dicomTableModel.resetTable(advSearchWindow.createCondition());
                 }
 
                 anchors {
@@ -379,9 +380,39 @@ Item {
 
             
         }
-
+        function getSql(str) {
+            console.log('getSql: ' + str)
+            if (str == "") {
+                return "%"
+            } else {
+                return str;
+            }
+        }
+        function createCondition() {
+            let condition = `where `
+            // `patients.name = "${getSql(patientNameField.text)}" and ` +
+            // `patients.gender = "${getSql(patientSexField.currentText)}" and ` +
+            // `patients.age = "${getSql(patientAgeField.text)}" and ` +
+            // `patients.patientIdentifier = "${getSql(patientPESELField.text)}" and ` +
+            // `exams.id = "${getSql(studyIdField.text)}" and ` +
+            // `exams.modality = "${getSql(studyTypeField.currentText)}" and ` +
+            // `exams.filePathexams = "${getSql(studyNameField.text)}" and ` +
+            // `exams.acq_date = "${getSql(studyDateField.text)}" `;
+            if (patientNameField.text != "" && patientNameField.text != undefined) condition += `patients.name = '${patientNameField.text}' and `
+            if (patientSexField.currentText != "" && patientSexField.currentText != undefined) condition += `patients.gender = '${patientSexField.currentText}' and `
+            if (patientAgeField.text != "" && patientAgeField.text != undefined) condition += `patients.age = '${patientAgeField.text}' and `
+            if (patientPESELField.text != "" && patientPESELField.text != undefined) condition += `patients.patientIdentifier = '${patientPESELField.text}' and `
+            if (studyIdField.text != "" && studyIdField.text != undefined) condition += `exams.id = '${studyIdField.text}' and `
+            if (studyTypeField.currentText != "" && studyTypeField.currentText != undefined) condition += `exams.modality = '${studyTypeField.currentText}' and `
+            if (studyNameField.text != "" && studyNameField.text != undefined) condition += `exams.filePath = '${studyNameField.text}' and `
+            if (studyDateField.text != "" && studyDateField.text != undefined) condition += `exams.acq_date = '${studyDateField.text}' `;
+            if (condition.slice(-4) == "and ") {
+                condition = condition.slice(0, condition.length - 4) + " "
+            }
+            return condition;
+        }
     }
-    
+
     Window {
         id: window
         width: 1000
