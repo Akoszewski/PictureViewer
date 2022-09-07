@@ -9,12 +9,12 @@ import "Components/"
 
 Item {
 
-    // property string currFileName: ""
-    // property int containerWidth: window.width * 0.35
-    // property int containerHeight: window.width * 0.35
     property string currFileName: ""
+    property int containerWidth: window.width * 0.35
+    property int containerHeight: window.width * 0.35
+    /*property string currFileName: ""
     property int containerWidth: window.width * 0.4
-    property int containerHeight: window.width * 0.4
+    property int containerHeight: window.width * 0.4*/
     property int containerMargin: window.width * 0.05
 
     Window {
@@ -380,8 +380,8 @@ Item {
     
     Window {
         id: window
-        width: 1200
-        height: 800
+        width: 1000
+        height: 600
         visible: true
         title: qsTr("Dicom Picture Viewer")
 

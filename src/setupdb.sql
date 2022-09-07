@@ -15,6 +15,7 @@ CREATE TABLE exams (
    patientIdentifier VARCHAR(16),
    modality VARCHAR(16),
    filePath VARCHAR(1024),
+   acq_date VARCHAR (20),
    PRIMARY KEY(id),
    FOREIGN KEY(patientIdentifier) REFERENCES patients(patientIdentifier)
 );
