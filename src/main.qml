@@ -549,5 +549,20 @@ Item {
                 folderDialog.open()
             }
         }
+
+        Button {
+            id: resetDatabaseBtn
+            text: qsTr("Clear database")
+            width: advancedSearchBtn.width 
+            height: advancedSearchBtn.height
+            anchors {
+                bottom: parent.bottom
+                bottomMargin: containerMargin
+                left: loadDataBtn.right
+            }
+            onClicked: {
+                dbCreator.setupDatabase();
+            }
+        }
     }  
 }

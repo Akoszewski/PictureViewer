@@ -2,25 +2,13 @@
 #include "DicomImageProvider.h"
 #include "DicomImporter.h"
 #include "DicomTableModel.h"
+#include "DatabaseCreator.h"
 
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 
 using namespace std;
-
-void createDatabase(const QString& databaseName)
-{
-    DatabaseConnection postgresDb("postgres");
-    postgresDb.executeQuery("create database " + databaseName + ";");
-}
-
-void setupDatabase()
-{
-    createDatabase("app_database");
-    DatabaseConnection db("app_database");
-    db.executeSqlFile(":/setupdb.sql");
-}
 
 int main(int argc, char *argv[])
 {
@@ -31,11 +19,12 @@ int main(int argc, char *argv[])
     
     Q_INIT_RESOURCE(app);
 
-    setupDatabase();
+    DatabaseCreator dbCreator;
+    dbCreator.setupDatabase();
+    engine.rootContext()->setContextProperty("dbCreator", &dbCreator);
 
     DicomImporter dicomImporter;
     engine.rootContext()->setContextProperty("dicomImporter", &dicomImporter);
-    // dicomImporter.importFiles(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + "/images/DICOM/");
 
     DicomTableModel dicomTableModel;
     engine.rootContext()->setContextProperty("dicomTableModel", &dicomTableModel);
