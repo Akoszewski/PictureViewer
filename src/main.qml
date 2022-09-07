@@ -366,7 +366,11 @@ Item {
                 text: "Szukaj"
                 height: advSearchWindow.height * 0.05
                 width: advSearchWindow.width * 0.4
-                onClicked: advSearchWindow.visible = false //ewentualnie mozna wyrzucic
+                onClicked: {
+                    advSearchWindow.visible = false;
+                    const condition = createCondition();
+                    dicomTableModel.resetTable("where exams.modality = 'CT'");
+                }
 
                 anchors {
                     horizontalCenter: patientSearchText.horizontalCenter
