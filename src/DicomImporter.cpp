@@ -1,5 +1,9 @@
 #include "DicomImporter.h"
 
+DicomImporter::DicomImporter(QObject *parent)
+    : QObject(parent)
+{}
+
 QString DicomImporter::getPatientName(const imebra::DataSet &loadedDataSet)
 {
     imebra::UnicodePatientName patientName = loadedDataSet.getUnicodePatientName(imebra::TagId(imebra::tagId_t::PatientName_0010_0010), 0);
@@ -42,7 +46,7 @@ void DicomImporter::importDicomData(DatabaseConnection &db, const QString &fileP
     }
 }
 
-void copyFilesFromDir(const QString& sourcePath, const QString& destPath)
+void DicomImporter::copyFilesFromDir(const QString& sourcePath, const QString& destPath)
 {
     QDirIterator iter(sourcePath, QDir::Files);
     QString fileName;
@@ -50,7 +54,6 @@ void copyFilesFromDir(const QString& sourcePath, const QString& destPath)
         QDir().mkdir(destPath);
     }
     while (iter.hasNext()) {
-        qDebug() << iter.next();
         fileName = iter.fileName();
         QFile sourceFile(sourcePath + QDir::separator() + fileName);
         sourceFile.copy(destPath + QDir::separator() + fileName);
@@ -60,7 +63,8 @@ void copyFilesFromDir(const QString& sourcePath, const QString& destPath)
 void DicomImporter::importFiles(const QString &path)
 {
     DatabaseConnection db("app_database");
-    QDirIterator it(path);
+    QDirIterator it(path + "/");
+
     while (it.hasNext())
     {
         QString fileName = it.next();

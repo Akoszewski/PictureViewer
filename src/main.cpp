@@ -34,12 +34,11 @@ int main(int argc, char *argv[])
     setupDatabase();
 
     DicomImporter dicomImporter;
-    dicomImporter.importFiles(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + "/images/DICOM/");
+    engine.rootContext()->setContextProperty("dicomImporter", &dicomImporter);
+    // dicomImporter.importFiles(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + "/images/DICOM/");
 
     DicomTableModel dicomTableModel;
-
-    QQmlContext* context = engine.rootContext();
-    context->setContextProperty("dicomTableModel", &dicomTableModel);
+    engine.rootContext()->setContextProperty("dicomTableModel", &dicomTableModel);
 
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
     return app.exec();

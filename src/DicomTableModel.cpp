@@ -4,8 +4,20 @@
 DicomTableModel::DicomTableModel(QObject *parent)
     : QAbstractTableModel(parent)
 {
+    loadFromSql();
+}
+
+void DicomTableModel::loadFromSql()
+{
     DatabaseConnection db("app_database");
     table = db.executeQuery("select * from exams INNER JOIN patients ON exams.patientIdentifier = patients.patientIdentifier");
+}
+
+void DicomTableModel::reloadTable()
+{
+    beginResetModel();
+    loadFromSql();
+    endResetModel();
 }
 
 int DicomTableModel::rowCount(const QModelIndex & /*parent*/) const

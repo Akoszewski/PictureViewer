@@ -4,6 +4,7 @@ import Qt.labs.folderlistmodel 1.0
 import QtQuick.Window 2.15
 import Qt.labs.qmlmodels 1.0
 import Qt.labs.platform
+import QtQuick.Dialogs
 
 import "Components/"
 
@@ -16,6 +17,19 @@ Item {
     property int containerWidth: window.width * 0.4
     property int containerHeight: window.width * 0.4
     property int containerMargin: window.width * 0.05
+
+    Connections {
+        target: dicomImporter
+    }
+
+    FolderDialog {
+        id: folderDialog
+        currentFolder: StandardPaths.writableLocation(StandardPaths.DocumentsLocation)
+        onAccepted: {
+            dicomImporter.importFiles(selectedFolder.toString().replace("file:///", "/"))
+            dicomTableModel.reloadTable()
+        }
+    }
 
     Window {
         id: advSearchWindow
@@ -523,7 +537,7 @@ Item {
 
         Button {
             id: loadDataBtn
-            text: "Import danych"
+            text: qsTr("Import danych")
             width: advancedSearchBtn.width 
             height: advancedSearchBtn.height
             anchors {
@@ -531,7 +545,9 @@ Item {
                 bottomMargin: containerMargin
                 horizontalCenter: parent.horizontalCenter
             }
-
+            onClicked: {
+                folderDialog.open()
+            }
         }
     }  
 }

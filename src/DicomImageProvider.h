@@ -1,5 +1,5 @@
-#ifndef DICOM_IMAGE_PROVIDER
-#define DICOM_IMAGE_PROVIDER
+#ifndef DICOM_IMAGE_PROVIDER_H
+#define DICOM_IMAGE_PROVIDER_H
 
 #include <QQuickImageProvider>
 
