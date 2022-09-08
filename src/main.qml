@@ -379,6 +379,7 @@ Item {
                 onClicked: {
                     advSearchWindow.visible = false;
                     dicomTableModel.resetTable(advSearchWindow.createCondition());
+                    picsListText.visible = true;
                 }
 
                 anchors {
@@ -470,6 +471,7 @@ Item {
             font.bold: true
             horizontalAlignment: Text.AlignHCenter  
             font.pixelSize: 15
+            visible: false
 
 
             anchors {
@@ -589,6 +591,7 @@ Item {
             }
             onClicked: {
                 folderDialog.open();
+                picsListText.visible = true;
             }
         }
 
@@ -605,6 +608,7 @@ Item {
             }
             onClicked: {
                 dicomTableModel.resetTable("");
+                picsListText.visible = true;
             }
         }
 
