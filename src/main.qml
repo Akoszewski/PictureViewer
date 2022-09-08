@@ -396,15 +396,15 @@ Item {
 
         function createCondition() {
             let condition = " where "
-            if (patientIdField.text != "") condition += `patients.id = '${patientIdField.text}' and `
-            if (patientNameField.text != "") condition += `patients.name = '${patientNameField.text}' and `
-            if (patientSexField.currentText != "") condition += `patients.gender = '${patientSexField.currentText}' and `
-            if (patientAgeField.text != "") condition += `patients.age = '${patientAgeField.text}' and `
-            if (patientPESELField.text != "") condition += `patients.patientIdentifier = '${patientPESELField.text}' and `
-            if (studyIdField.text != "") condition += `exams.id = '${studyIdField.text}' and `
-            if (studyTypeField.currentText != "") condition += `exams.modality = '${studyTypeField.currentText}' and `
-            if (studyNameField.text != "") condition += `exams.filePath = '${studyNameField.text}' and `
-            if (studyDateField.text != "") condition += `exams.acq_date = '${studyDateField.text}' `;
+            if (patientIdField.text != "") condition += `patients.id LIKE '%${patientIdField.text}%' and `
+            if (patientNameField.text != "") condition += `patients.name LIKE '%${patientNameField.text}%' and `
+            if (patientSexField.currentText != "") condition += `patients.gender LIKE '%${patientSexField.currentText}%' and `
+            if (patientAgeField.text != "") condition += `patients.age LIKE '%${patientAgeField.text}%' and `
+            if (patientPESELField.text != "") condition += `patients.patientIdentifier LIKE '%${patientPESELField.text}%' and `
+            if (studyIdField.text != "") condition += `exams.id LIKE '%${studyIdField.text}%' and `
+            if (studyTypeField.currentText != "") condition += `exams.modality LIKE '%${studyTypeField.currentText}%' and `
+            if (studyNameField.text != "") condition += `exams.filePath LIKE '%${studyNameField.text}%' and `
+            if (studyDateField.text != "") condition += `exams.acq_date LIKE '%${studyDateField.text}%' `;
             if (condition.slice(-4) == "and ") {
                 condition = condition.slice(0, condition.length - 4) + " "
             }
@@ -451,7 +451,7 @@ Item {
             height: searchBar.height
             onClicked: {
                 let condition = "";
-                if (searchBar.text != "") condition += ` where exams.filePath = '${searchBar.text}' `;
+                if (searchBar.text != "") condition += ` where exams.filePath LIKE '%${searchBar.text}%' `;
                 dicomTableModel.resetTable(condition);
             }
 
