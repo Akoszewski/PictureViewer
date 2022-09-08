@@ -13,7 +13,8 @@ HEADERS += \
     src/DatabaseConnection.h \
     src/DicomImageProvider.h \
     src/DicomImporter.h \
-    src/DicomTableModel.h
+    src/DicomTableModel.h \
+    src/DatabaseSetuper.h
 
 RESOURCES += \
     src/app.qrc

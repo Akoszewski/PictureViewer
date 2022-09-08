@@ -602,5 +602,21 @@ Item {
                 folderDialog.open();
             }
         }
+
+        Button {
+            id: deleteDataBtn
+            text: "Wyczyść dane"
+            width: advancedSearchBtn.width 
+            height: advancedSearchBtn.height
+            anchors {
+                bottom: parent.bottom
+                bottomMargin: containerMargin
+                left: loadDataBtn.right
+                leftMargin: 10
+            }
+            onClicked: {
+                folderDialog.open();
+            }
+        }
     }  
 }
