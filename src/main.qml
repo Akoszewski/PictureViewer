@@ -605,7 +605,7 @@ Item {
 
         Button {
             id: deleteDataBtn
-            text: "Wyczyść dane"
+            text: "Wyczyść bazę"
             width: advancedSearchBtn.width 
             height: advancedSearchBtn.height
             anchors {
@@ -615,7 +615,8 @@ Item {
                 leftMargin: 10
             }
             onClicked: {
-                folderDialog.open();
+                dbSetuper.setupDatabase();
+                dicomTableModel.resetTable();
             }
         }
     }  
