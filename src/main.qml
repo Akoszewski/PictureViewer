@@ -12,10 +12,18 @@ Item {
     property string currFileName: ""
     property int containerWidth: window.width * 0.35
     property int containerHeight: window.width * 0.35
-    /*property string currFileName: ""
-    property int containerWidth: window.width * 0.4
-    property int containerHeight: window.width * 0.4*/
     property int containerMargin: window.width * 0.05
+
+    FolderDialog {
+        id: folderDialog
+        currentFolder: StandardPaths.writableLocation(StandardPaths.DocumentsLocation)
+        onAccepted: {
+            console.log("Dialog accepted");
+            let path = folderDialog.folder.toString();
+            dicomImporter.importFiles(path.replace("file:///", "/"));
+            dicomTableModel.resetTable();
+        }
+    }
 
     Window {
         id: advSearchWindow
@@ -590,7 +598,9 @@ Item {
                 bottomMargin: containerMargin
                 horizontalCenter: parent.horizontalCenter
             }
-
+            onClicked: {
+                folderDialog.open();
+            }
         }
     }  
 }

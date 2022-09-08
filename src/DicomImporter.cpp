@@ -63,6 +63,7 @@ void copyFilesFromDir(const QString& sourcePath, const QString& destPath)
 void DicomImporter::importFiles(const QString &path)
 {
     DatabaseConnection db("app_database");
+    qDebug() << "Importing files from: " << path;
     QDirIterator it(path);
     while (it.hasNext())
     {

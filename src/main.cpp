@@ -36,12 +36,11 @@ int main(int argc, char *argv[])
     QQmlContext* context = engine.rootContext();
 
     DicomImporter dicomImporter;
-    dicomImporter.importFiles(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + "/images/DICOM/");
-
+    // dicomImporter.importFiles(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + "/images/DICOM/");
 
     DicomTableModel dicomTableModel;
-
     context->setContextProperty("dicomTableModel", &dicomTableModel);
+    context->setContextProperty("dicomImporter", &dicomImporter);
 
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
     return app.exec();

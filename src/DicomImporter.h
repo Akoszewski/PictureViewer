@@ -2,10 +2,12 @@
 
 #include <imebra/imebra.h>
 
-class DicomImporter
+class DicomImporter : public QObject
 {
+    Q_OBJECT
 public:
-    void importFiles(const QString &path);
+    DicomImporter(QObject *parent = nullptr) : QObject(parent) {}
+    Q_INVOKABLE void importFiles(const QString &path);
 private:
     QString getPatientName(const imebra::DataSet &loadedDataSet);
     QString getTag(const imebra::DataSet &loadedDataSet, const imebra::tagId_t &tag);
