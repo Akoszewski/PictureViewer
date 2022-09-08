@@ -605,7 +605,7 @@ Item {
 
         Button {
             id: deleteDataBtn
-            text: "Wyczyść bazę"
+            text: "Wyczyść filtry"
             width: advancedSearchBtn.width 
             height: advancedSearchBtn.height
             anchors {
@@ -615,8 +615,7 @@ Item {
                 leftMargin: 10
             }
             onClicked: {
-                dbSetuper.setupDatabase();
-                dicomTableModel.resetTable();
+                dicomTableModel.resetTable("");
             }
         }
     }  
