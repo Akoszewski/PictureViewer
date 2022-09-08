@@ -388,32 +388,17 @@ Item {
 
             
         }
-        function getSql(str) {
-            console.log('getSql: ' + str)
-            if (str == "") {
-                return "%"
-            } else {
-                return str;
-            }
-        }
+
         function createCondition() {
-            let condition = `where `
-            // `patients.name = "${getSql(patientNameField.text)}" and ` +
-            // `patients.gender = "${getSql(patientSexField.currentText)}" and ` +
-            // `patients.age = "${getSql(patientAgeField.text)}" and ` +
-            // `patients.patientIdentifier = "${getSql(patientPESELField.text)}" and ` +
-            // `exams.id = "${getSql(studyIdField.text)}" and ` +
-            // `exams.modality = "${getSql(studyTypeField.currentText)}" and ` +
-            // `exams.filePathexams = "${getSql(studyNameField.text)}" and ` +
-            // `exams.acq_date = "${getSql(studyDateField.text)}" `;
-            if (patientNameField.text != "" && patientNameField.text != undefined) condition += `patients.name = '${patientNameField.text}' and `
-            if (patientSexField.currentText != "" && patientSexField.currentText != undefined) condition += `patients.gender = '${patientSexField.currentText}' and `
-            if (patientAgeField.text != "" && patientAgeField.text != undefined) condition += `patients.age = '${patientAgeField.text}' and `
-            if (patientPESELField.text != "" && patientPESELField.text != undefined) condition += `patients.patientIdentifier = '${patientPESELField.text}' and `
-            if (studyIdField.text != "" && studyIdField.text != undefined) condition += `exams.id = '${studyIdField.text}' and `
-            if (studyTypeField.currentText != "" && studyTypeField.currentText != undefined) condition += `exams.modality = '${studyTypeField.currentText}' and `
-            if (studyNameField.text != "" && studyNameField.text != undefined) condition += `exams.filePath = '${studyNameField.text}' and `
-            if (studyDateField.text != "" && studyDateField.text != undefined) condition += `exams.acq_date = '${studyDateField.text}' `;
+            let condition = " where "
+            if (patientNameField.text != "") condition += `patients.name = '${patientNameField.text}' and `
+            if (patientSexField.currentText != "") condition += `patients.gender = '${patientSexField.currentText}' and `
+            if (patientAgeField.text != "") condition += `patients.age = '${patientAgeField.text}' and `
+            if (patientPESELField.text != "") condition += `patients.patientIdentifier = '${patientPESELField.text}' and `
+            if (studyIdField.text != "") condition += `exams.id = '${studyIdField.text}' and `
+            if (studyTypeField.currentText != "") condition += `exams.modality = '${studyTypeField.currentText}' and `
+            if (studyNameField.text != "") condition += `exams.filePath = '${studyNameField.text}' and `
+            if (studyDateField.text != "") condition += `exams.acq_date = '${studyDateField.text}' `;
             if (condition.slice(-4) == "and ") {
                 condition = condition.slice(0, condition.length - 4) + " "
             }
@@ -455,10 +440,14 @@ Item {
 
         Button {
             id: advancedSearchBtn
-            text: "Zaawansowane wyszukiwanie"
+            text: "Szukaj"
             width: window.width * 0.2
             height: searchBar.height
-            onClicked: advSearchWindow.visible = true
+            onClicked: {
+                let condition = "";
+                if (searchBar.text != "") condition += ` where exams.filePath = '${searchBar.text}' `;
+                dicomTableModel.resetTable(condition);
+            }
 
             anchors {
                 verticalCenter: searchBar.verticalCenter
@@ -604,8 +593,24 @@ Item {
         }
 
         Button {
-            id: deleteDataBtn
+            id: clearFiltersBtn
             text: "Wyczyść filtry"
+            width: advancedSearchBtn.width 
+            height: advancedSearchBtn.height
+            anchors {
+                bottom: parent.bottom
+                bottomMargin: containerMargin
+                right: loadDataBtn.left
+                rightMargin: 10
+            }
+            onClicked: {
+                dicomTableModel.resetTable("");
+            }
+        }
+
+        Button {
+            id: advSearchBtn
+            text: "Szukanie zaawansowane"
             width: advancedSearchBtn.width 
             height: advancedSearchBtn.height
             anchors {
@@ -615,7 +620,7 @@ Item {
                 leftMargin: 10
             }
             onClicked: {
-                dicomTableModel.resetTable("");
+                advSearchWindow.visible = true;
             }
         }
     }  
