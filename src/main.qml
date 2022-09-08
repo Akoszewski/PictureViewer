@@ -96,7 +96,7 @@ Item {
                     selectByMouse : true
 
                     validator: RegularExpressionValidator{
-                        regularExpression: /^[0-9]{11}|99999999999/
+                        regularExpression: /^[0-9]{14}|99999999999999/
                     }
 
                     background: Rectangle {
@@ -149,7 +149,7 @@ Item {
 
                 ComboBox {
                     id: patientSexField
-                    model: ["F", "M", "O"]
+                    model: ["O", "F", "M"]
                     height: advSearchWindow.height * 0.05
                     width: advSearchWindow.width * 0.4
                     background: Rectangle {
@@ -205,7 +205,7 @@ Item {
                     horizontalAlignment: Text.AlignHCenter
                     selectByMouse : true
                     validator: RegularExpressionValidator{
-                        regularExpression: /^[1-9][0-9]{1}|[1][0-9]{2}|199/
+                        regularExpression: /^[1-9][0-9]{1}|[0]|[1][0-9]{2}|199/
                     }
                     background: Rectangle {
                         radius: 2
@@ -278,7 +278,7 @@ Item {
 
                 ComboBox {
                     id: studyTypeField
-                    model: ["CT", "MR", "CR", "PT", "US", "OT"]
+                    model: ["MR", "CT", "CR", "PT", "US", "OT"]
                     height: advSearchWindow.height * 0.05
                     width: advSearchWindow.width * 0.4
                     background: Rectangle {
@@ -312,7 +312,7 @@ Item {
                     id: studyDateText
                     height: advSearchWindow.height * 0.07
                     width: advSearchWindow.width * 0.4
-                    text: "Data badania"
+                    text: "Data badania (rrrrmmdd)"
                     horizontalAlignment: Text.AlignHCenter
                     
                 }
@@ -323,10 +323,15 @@ Item {
                     width: advSearchWindow.width * 0.4
                     horizontalAlignment: Text.AlignHCenter
                     selectByMouse: true
-                    inputMethodHints: Qt.ImhDate
+                    
+                    validator: RegularExpressionValidator{
+                        regularExpression: /^[1-2][0-9]{3}[0][1-9][0][1-9]|[1-2][0-9]{3}[1][0-2][0][1-9]|[1-2][0-9]{3}[0][1-9][1-2][0-9]|[1-2][0-9]{3}[1][0-2][1-2][0-9]|[1-2][0-9]{3}[0][1-9][3][0-1]|[1-2][0-9]{3}[1][0-2][3][0-1]|29991231/
+                    }
+
+                    /*inputMethodHints: Qt.ImhDate
                     onActiveFocusChanged: {
                         inputMask= "00-00-0000"
-                    }
+                    }*/
                     background: Rectangle {
                         radius: 2
                         color: "aliceblue"
@@ -391,6 +396,7 @@ Item {
 
         function createCondition() {
             let condition = " where "
+            if (patientIdField.text != "") condition += `patients.id = '${patientIdField.text}' and `
             if (patientNameField.text != "") condition += `patients.name = '${patientNameField.text}' and `
             if (patientSexField.currentText != "") condition += `patients.gender = '${patientSexField.currentText}' and `
             if (patientAgeField.text != "") condition += `patients.age = '${patientAgeField.text}' and `
