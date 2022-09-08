@@ -141,7 +141,7 @@ Item {
 
                 ComboBox {
                     id: patientSexField
-                    model: ["F", "M", "O"]
+                    model: ["O", "F", "M"]
                     height: advSearchWindow.height * 0.05
                     width: advSearchWindow.width * 0.4
                     background: Rectangle {
@@ -270,7 +270,7 @@ Item {
 
                 ComboBox {
                     id: studyTypeField
-                    model: ["CT", "MR", "CR", "PT", "US", "OT"]
+                    model: ["MR", "CT", "CR", "PT", "US", "OT"]
                     height: advSearchWindow.height * 0.05
                     width: advSearchWindow.width * 0.4
                     background: Rectangle {
@@ -403,6 +403,7 @@ Item {
             // `exams.modality = "${getSql(studyTypeField.currentText)}" and ` +
             // `exams.filePathexams = "${getSql(studyNameField.text)}" and ` +
             // `exams.acq_date = "${getSql(studyDateField.text)}" `;
+            if (patientIdField.text != "" && patientIdField.text != undefined) condition += `patients.id = '${patientIdField.text}' and `
             if (patientNameField.text != "" && patientNameField.text != undefined) condition += `patients.name = '${patientNameField.text}' and `
             if (patientSexField.currentText != "" && patientSexField.currentText != undefined) condition += `patients.gender = '${patientSexField.currentText}' and `
             if (patientAgeField.text != "" && patientAgeField.text != undefined) condition += `patients.age = '${patientAgeField.text}' and `
